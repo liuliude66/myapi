@@ -4,7 +4,7 @@ import time
 from com.forum.lottery.utils.Report import FileHelper
 
 
-# 父类验证
+# API父类
 class Api(object):
     domain = 'http://msg2.0234.co/'
     url = ''

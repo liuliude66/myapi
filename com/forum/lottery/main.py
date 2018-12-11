@@ -3,7 +3,7 @@
 
 from com.forum.lottery.api.LoginApi import LoginApi
 from com.forum.lottery.api.CountdownApi import CountdownApi
-from com.forum.lottery.common.NotSuccessException import NotSuccessException
+from com.forum.lottery.api.LotteryApi import LotteryApi
 
 if __name__ == '__main__':
 
@@ -16,4 +16,6 @@ if __name__ == '__main__':
     countdownInstance = CountdownApi()
     countdownInstance.run()
 
+    lotteryInstance = LotteryApi()
+    lotteryInstance.run()
     print("------->  over  <-------")
