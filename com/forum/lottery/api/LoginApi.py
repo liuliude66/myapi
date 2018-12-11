@@ -1,8 +1,11 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-import requests
 import json
+
+import requests
+
 from com.forum.lottery.api.Api import Api
+from com.forum.lottery.common.NotSuccessException import NotSuccessException
 from com.forum.lottery.common.Singleton import Singleton
 
 
@@ -16,7 +19,6 @@ class LoginApi(Api):
         self.parameter['password'] = password
 
     def action(self):
-        print('-----------> start login test <-----------')
         session = requests.session()
         response = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout)
         res = json.loads(response.text)
@@ -28,7 +30,11 @@ class LoginApi(Api):
             params = json.dumps(self.parameter)
             response = session.post(self.login, headers=self.header, data=params, timeout=self.timeout)
             print(response.text)
+            login_res = json.loads(response.text)
+            if login_res['code'] != 0:
+                content = self.login + "\n" + res['msg']
+                raise NotSuccessException(content)
         else:
-            print(res['code'])
-            print('即将写入报告，是否成功')
+            content = self.url + "\n" + res['msg']
+            raise NotSuccessException(content)
 

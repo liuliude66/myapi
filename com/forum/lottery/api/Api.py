@@ -1,5 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
+import time
+from com.forum.lottery.utils.Report import FileHelper
 
 
 # 父类验证
@@ -18,12 +20,16 @@ class Api(object):
         self.header['sessionid'] = ''
 
     def run(self):
-        print('------> start test action should get current time<-----')
         try:
+            start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             self.action()
+            end = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            content = "以下该接口成功执行，并记录下起止时间：\n" + start + "\n" + self.url + "\n" + end + "\n"
+            helper = FileHelper()
+            helper.write(content)
         except Exception as e:
-            print(e.args)
-        print('------> finish test action should get and calculate current time<-----')
+            helper = FileHelper()
+            helper.write(e.args)
 
     def action(self):
         pass
