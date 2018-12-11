@@ -9,14 +9,17 @@ from com.forum.lottery.common.NotSuccessException import NotSuccessException
 from com.forum.lottery.common.Singleton import Singleton
 
 
-# 模板Api接口
-class LotteryApi(Api):
+# 充值记录Api接口
+class RechargeRecordApi(Api):
 
     def __init__(self):
         Api.__init__(self)
-        self.url = self.domain + '******.do'
+        self.url = self.domain + 'capital/manage/change_log.do'
         instance = Singleton()
         self.header['sessionid'] = instance.getSessionId()
+        self.parameter['page'] = 1
+        self.parameter['type'] = -1
+
 
     def action(self):
         session = requests.session()

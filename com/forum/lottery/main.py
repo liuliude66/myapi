@@ -5,6 +5,7 @@ from com.forum.lottery.api.LoginApi import LoginApi
 from com.forum.lottery.api.CountdownApi import CountdownApi
 from com.forum.lottery.api.LotteryApi import LotteryApi
 from com.forum.lottery.api.BetRecordApi import BetRecordApi
+from com.forum.lottery.api.RechargeRecordApi import RechargeRecordApi
 
 if __name__ == '__main__':
 
@@ -22,4 +23,7 @@ if __name__ == '__main__':
 
     #投注记录查询接口
     BetRecordApi().run()
+
+    #充值记录查询接口
+    RechargeRecordApi().run()
     print("------->  over  <-------")
