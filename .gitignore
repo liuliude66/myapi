@@ -1,3 +1,4 @@
 .idea/
 *.pyc
 venv/
+com/forum/lottery/report.txt
