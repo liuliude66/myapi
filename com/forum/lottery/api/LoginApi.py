@@ -25,8 +25,8 @@ class LoginApi(Api):
         if res['code'] == 0:    # 开始执行登录操作
             sessionid = res['data']['sessionid']
             self.header['sessionid'] = sessionid
-            intstance = Singleton()
-            intstance.setSessionId(sessionid)
+            instance = Singleton()
+            instance.setSessionId(sessionid)
             params = json.dumps(self.parameter)
             response = session.post(self.login, headers=self.header, data=params, timeout=self.timeout)
             print(response.text)
@@ -34,6 +34,8 @@ class LoginApi(Api):
             if login_res['code'] != 0:
                 content = self.login + "\n" + res['msg']
                 raise NotSuccessException(content)
+            else:
+                instance.setUserId(login_res['data']['userId'])
         else:
             content = self.url + "\n" + res['msg']
             raise NotSuccessException(content)

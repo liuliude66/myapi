@@ -9,24 +9,21 @@ from com.forum.lottery.common.NotSuccessException import NotSuccessException
 from com.forum.lottery.common.Singleton import Singleton
 
 
-# 充值记录Api接口
-class RechargeRecordApi(Api):
+# 银行卡绑定信息接口
+class BankInfoApi(Api):
 
     def __init__(self):
         Api.__init__(self)
-        self.url = self.domain + 'capital/manage/change_log.do'
+        self.url = self.domain + 'account/manage/get_bankinfo.do'
         instance = Singleton()
         self.header['sessionid'] = instance.getSessionId()
-        self.parameter['page'] = 1
-        self.parameter['type'] = -1
-
 
     def action(self):
         session = requests.session()
         params = json.dumps(self.parameter)
         response = session.post(self.url, headers=self.header, data=params, timeout=self.timeout)
-        print(response.text)
         res = json.loads(response.text)
+        print(res)
         if res['code'] != 0:  # 开始执行登录操作
             content = self.url + "\n" + res['msg']
             raise NotSuccessException(content)
