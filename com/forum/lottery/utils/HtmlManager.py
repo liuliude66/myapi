@@ -80,11 +80,11 @@ def summarize_html(start, end, pass_count, fail_count, exception_count, error_co
 
 def pass_result(tend):
     if tend == 'pass':
-        htl = '''<td bgcolor="green" style="text-align:center;">成功</td>'''
+        htl = '''<td bgcolor="green" style="text-align:center;color:white;">成功</td>'''
     elif tend == 'fail':
-        htl = '''<td bgcolor="fail" style="text-align:center;">失败</td>'''
+        htl = '''<td bgcolor="red" style="text-align:center;">失败</td>'''
     elif tend == 'exception':
-        htl = '''<td bgcolor="red" style="text-align:center;">执行异常</td>'''
+        htl = '''<td bgcolor="yellow" style="text-align:center;">执行异常</td>'''
     else:
         htl = '<td bgcolor="crimson" style="text-align:center;">输入期望值</td>'
     return htl
