@@ -46,10 +46,10 @@ def generate_html_head():
             <table class="table table-hover table-condensed table-bordered" style="word-wrap:break-word; word-break:break-all;  margin-top: 7px; table-layout: fixed;">
                 <tr style='text-align:center;'>
                     <td class='col-md-1'><strong>用例名字</strong></td>
-                    <td class='col-md-3'><strong>请求参数</strong></td>
+                    <td class='col-md-2'><strong>请求参数</strong></td>
                     <td class='col-md-3'><strong>url</strong></td>
                     <td class='col-md-1'><strong>预期</strong></td>
-                    <td class='col-md-3'><strong>实际返回</strong></td>  
+                    <td class='col-md-4'><strong>实际返回</strong></td>  
                     <td class='col-md-1'><strong>结果</strong></td>
                 </tr>
     '''
