@@ -46,7 +46,7 @@ def generate_html_head():
             <table class="table table-hover table-condensed table-bordered" style="word-wrap:break-word; word-break:break-all;  margin-top: 7px; table-layout: fixed;">
                 <tr >
                     <td class='col-md-1' style='text-align:center;'><strong>用例名字</strong></td>
-                    <td class='col-md-2.5' style='text-align:center;'><strong>请求内容</strong></td>
+                    <td class='col-md-2.5' style='text-align:center;'><strong>请求参数</strong></td>
                     <td class='col-md-2.5' style='text-align:center;'><strong>url</strong></td>
                     <td class='col-md-1' style='text-align:center;'><strong>预期</strong></td>
                     <td class='col-md-3' style="overflow: hidden;text-overflow: ellipsis;word-break:break-all;word-wrap:break-word;white-space: nowrap;"><strong>实际返回</strong></td>  

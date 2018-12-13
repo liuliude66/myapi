@@ -1,9 +1,9 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 import json
-import simplejson
-from com.forum.lottery.utils.Report import FileHelper
 from com.forum.lottery.utils.HtmlManager import *
+from com.forum.lottery.utils.Report import FileHelper
+
 
 # API父类
 class Api(object):
@@ -15,7 +15,6 @@ class Api(object):
     api_response = {}
     expect = ''
     case_name = ''
-
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
@@ -33,15 +32,16 @@ class Api(object):
                 response = self.action()
                 break
             except Exception as e:
-                message = str(tuple(e.args))
-                response = json.loads(message)
+                response = str(tuple(e.args))
         print(response)
         # 保存测试结果
         th_header = 'hello test result'
         try:
             expect_json = eval(self.expect)
-
-            if expect_json['code'] == response['code']:
+            if isinstance(response, str):
+                result = 'fail'
+                GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
+            elif expect_json['code'] == response['code']:
                 result = 'pass'
                 GlobalConfig['SUCCESS_COUNT'] = GlobalConfig['SUCCESS_COUNT'] + 1
             else:
@@ -51,7 +51,8 @@ class Api(object):
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter), self.expect, json.dumps(response), result)
+        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter), self.expect,
+                                  json.dumps(response), result)
         helper = FileHelper()
         helper.write(html)
 
