@@ -1,5 +1,6 @@
 #! python
 # -*- coding:utf-8 -*-
+from __future__ import unicode_literals
 from com.forum.lottery.utils.ExcelManager import *
 from com.forum.lottery.utils.HtmlManager import *
 from com.forum.lottery.api.CommonApi import CommonApi

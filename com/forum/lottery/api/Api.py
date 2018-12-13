@@ -1,5 +1,6 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
+from __future__ import unicode_literals
 import json
 from com.forum.lottery.utils.HtmlManager import *
 from com.forum.lottery.utils.Report import FileHelper
@@ -32,6 +33,7 @@ class Api(object):
                 response = self.action()
                 break
             except Exception as e:
+                print("重试次数:" + str(index))
                 response = str(tuple(e.args))
         print(response)
         # 保存测试结果
@@ -47,12 +49,17 @@ class Api(object):
             else:
                 result = 'fail'
                 GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
+                temp = dict()
+                temp['code'] = response['code']
+                temp['msg'] = response['msg']
+                response = temp
         except Exception as ex:
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter), self.expect,
-                                  json.dumps(response), result)
+        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter, ensure_ascii=False),
+                                  self.expect,
+                                  json.dumps(response, ensure_ascii=False), result)
         helper = FileHelper()
         helper.write(html)
 

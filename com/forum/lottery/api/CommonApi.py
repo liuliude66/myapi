@@ -1,6 +1,6 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-
+from __future__ import unicode_literals
 import json
 import requests
 
@@ -32,10 +32,10 @@ class CommonApi(Api):
             self.api_response = login_response
         else:
             self.header['sessionid'] = GlobalConfig['SESSION_ID']
-            # if self.parameter:
-            #     json_temp = eval(self.parameter)
-            #     json_temp['userid'] = GlobalConfig['USER_ID']
-            #     self.parameter = json.dumps(json_temp)
+            if self.parameter:
+                json_temp = eval(self.parameter)
+                # json_temp['userid'] = GlobalConfig['USER_ID']
+                self.parameter = json.dumps(json_temp)
             response = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout)
             self.api_response = json.loads(response.text)
             # if res['code'] != 0:  # 开始执行登录操作
