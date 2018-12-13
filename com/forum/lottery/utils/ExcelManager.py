@@ -20,6 +20,7 @@ def read_excel():
             item['request_url'] = table.cell(i, 4).value
             item['request_method'] = table.cell(i, 5).value
             item['request_expect'] = table.cell(i, 6).value
+            item['test_switch'] = table.cell(i, 7).value
             result.append(item)
         # print(result)
     except Exception as ex:

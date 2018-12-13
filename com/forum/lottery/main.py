@@ -13,6 +13,8 @@ if __name__ == '__main__':
     cases = read_excel()
     start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     for item in cases:
+        if item['test_switch'] != 'y':
+            continue
         CommonApi(item['request_url'], item['parameter'], item['case_name'], item['request_expect']).run()
     end = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     summarize = summarize_html(start, end, GlobalConfig['SUCCESS_COUNT'], GlobalConfig['FAILURE_COUNT'], GlobalConfig['UNKNOWN_COUNT'], GlobalConfig['ERROR_COUNT'])

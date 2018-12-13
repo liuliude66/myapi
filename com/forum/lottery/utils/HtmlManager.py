@@ -44,13 +44,13 @@ def generate_html_head():
                 </div>
             <div class="btn-group" role="group" aria-label="..."></div>
             <table class="table table-hover table-condensed table-bordered" style="word-wrap:break-word; word-break:break-all;  margin-top: 7px; table-layout: fixed;">
-                <tr >
-                    <td class='col-md-1' style='text-align:center;'><strong>用例名字</strong></td>
-                    <td class='col-md-2.5' style='text-align:center;'><strong>请求参数</strong></td>
-                    <td class='col-md-2.5' style='text-align:center;'><strong>url</strong></td>
-                    <td class='col-md-1' style='text-align:center;'><strong>预期</strong></td>
-                    <td class='col-md-3' style="overflow: hidden;text-overflow: ellipsis;word-break:break-all;word-wrap:break-word;white-space: nowrap;"><strong>实际返回</strong></td>  
-                    <td class='col-md-1' style='text-align:center;'><strong>结果</strong></td>
+                <tr style='text-align:center;'>
+                    <td class='col-md-1'><strong>用例名字</strong></td>
+                    <td class='col-md-3'><strong>请求参数</strong></td>
+                    <td class='col-md-3'><strong>url</strong></td>
+                    <td class='col-md-1'><strong>预期</strong></td>
+                    <td class='col-md-3'><strong>实际返回</strong></td>  
+                    <td class='col-md-1'><strong>结果</strong></td>
                 </tr>
     '''
 
@@ -63,7 +63,7 @@ def summarize_html(start, end, pass_count, fail_count, exception_count, error_co
             <tbody>
                 <tr><td><strong>开始时间:</strong> %s</td></tr>
                 <tr><td><strong>结束时间:</strong> %s</td></tr>
-                <tr><td><strong>耗时:</strong> %s</td></tr>
+                <tr><td><strong>耗时:</strong> %s 秒</td></tr>
                 <tr>
                     <td>
                         <strong>结果:</strong>
