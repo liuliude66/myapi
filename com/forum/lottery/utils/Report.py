@@ -1,9 +1,8 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
+from com.forum.lottery.config.GlobalParams import GlobalConfig
 
 class FileHelper(object):
-
-    file = 'report.txt'
 
     def __init__(self):
         pass
@@ -11,7 +10,7 @@ class FileHelper(object):
     def write(self, content):
         fo = None
         try:
-            fo = open(self.file, "a+")
+            fo = open(GlobalConfig['REPORT_PATH'], "a+")
             if isinstance(content, str):
                 fo.write(content + "\n")
             elif isinstance(content, tuple):

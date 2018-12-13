@@ -1,16 +1,21 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-import time
+import json
+import simplejson
 from com.forum.lottery.utils.Report import FileHelper
-
+from com.forum.lottery.utils.HtmlManager import *
 
 # API父类
 class Api(object):
-    domain = 'http://msg2.0234.co/'
+    domain = GlobalConfig['DOMAIN']
     url = ''
-    timeout = 10
+    timeout = GlobalConfig['REQUEST_TIMEOUT']
     header = {}
     parameter = {}
+    api_response = {}
+    expect = ''
+    case_name = ''
+
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
@@ -20,16 +25,35 @@ class Api(object):
         self.header['sessionid'] = ''
 
     def run(self):
+        index = 0
+        response = {}
+        while index < GlobalConfig['MAX_RETRY']:
+            index = index + 1
+            try:
+                response = self.action()
+                break
+            except Exception as e:
+                message = str(tuple(e.args))
+                response = json.loads(message)
+        print(response)
+        # 保存测试结果
+        th_header = 'hello test result'
         try:
-            start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            self.action()
-            end = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            content = "以下该接口成功执行，并记录下起止时间：\n" + start + "\n" + self.url + "\n" + end + "\n"
-            helper = FileHelper()
-            helper.write(content)
-        except Exception as e:
-            helper = FileHelper()
-            helper.write(e.args)
+            expect_json = eval(self.expect)
+
+            if expect_json['code'] == response['code']:
+                result = 'pass'
+                GlobalConfig['SUCCESS_COUNT'] = GlobalConfig['SUCCESS_COUNT'] + 1
+            else:
+                result = 'fail'
+                GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
+        except Exception as ex:
+            result = 'error'
+            GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
+            print(ex.args)
+        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter), self.expect, json.dumps(response), result)
+        helper = FileHelper()
+        helper.write(html)
 
     def action(self):
         pass
