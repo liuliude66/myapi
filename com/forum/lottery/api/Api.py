@@ -41,8 +41,8 @@ class Api(object):
         try:
             expect_json = eval(self.expect)
             if isinstance(response, str):
-                result = 'fail'
-                GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
+                result = 'exception'
+                GlobalConfig['EXCEPTION_COUNT'] = GlobalConfig['EXCEPTION_COUNT'] + 1
             elif expect_json['code'] == response['code']:
                 result = 'pass'
                 GlobalConfig['SUCCESS_COUNT'] = GlobalConfig['SUCCESS_COUNT'] + 1
