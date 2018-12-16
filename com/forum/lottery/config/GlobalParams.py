@@ -12,6 +12,6 @@ GlobalConfig = {
     'FAILURE_COUNT': 0,  # 失败的个数
     'ERROR_COUNT': 0,  # 异常的个数
     'EXCEPTION_COUNT': 0,  # 未知错误的个数
-    'REPORT_PATH': 'D:/PycharmProjects/api-test/',  # 测试报告文档
+    'REPORT_PATH': 'D:/PycharmProjects/APITest/files/report/',  # 测试报告文档
     'TEST_CASE_PATH': 'D:/PycharmProjects/APITest/test_case/case123.xlsx'  # 测试用例路径
 }

@@ -5,6 +5,7 @@ from tkinter import *
 from tkinter import ttk
 import datetime
 from com.forum.special.testCase.loginTest import LoginTest
+from com.forum.special.testCase.betTest import BetTest
 from com.forum.special.htmls.loginModuleHtml import *
 import threading
 
@@ -74,7 +75,10 @@ class AppUI(object):
         exec_thread.start()
 
     def lottery_layout(self):
-        self.create_log("hello lottery_layout...")
+        self.create_log("获取布局开始执行...")
+        exec_thread = threading.Thread(target=self.lottery_layout_action)
+        exec_thread.setDaemon(True)
+        exec_thread.start()
 
     def lottery_bet(self):
         self.create_log('hello lottery_bet...')
@@ -107,6 +111,29 @@ class AppUI(object):
             self.create_log("！！！！！！！！！登录执行异常！！！！！！！！！")
             self.create_log(str(ex.args))
 
+    def lottery_layout_action(self):
+        try:
+            start_time = datetime.datetime.now()
+            result_dic = BetTest().interfaceLotteryLayoutCase()
+            end_time = datetime.datetime.now()
+            print(result_dic)
+            # handleLoginHtmlData(start_time, end_time, result_dic)
+            self.create_log("获取布局结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！获取布局执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
+
+    def lottery_bet_action(self):
+        try:
+            start_time = datetime.datetime.now()
+            result_dic = BetTest().interfaceBetCase()
+            end_time = datetime.datetime.now()
+            print(result_dic)
+            # handleLoginHtmlData(start_time, end_time, result_dic)
+            self.create_log("获取布局结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！获取布局执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
 
 if __name__ == "__main__":
     AppUI()
