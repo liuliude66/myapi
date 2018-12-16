@@ -4,7 +4,7 @@
 from com.forum.lottery.common.Singleton import Singleton
 
 class PublicHandle():
-    def showResultSuccessDic(self, result):  # 成功返回的显示
+    def showResultSuccessDic(self, result): # 成功返回的显示
         showDic = dict()
         showDic['code'] = result['code']
         if 'msg' in result.keys():
@@ -33,10 +33,13 @@ class PublicHandle():
         listItemDic['name'] = urlName
         listItemDic['url'] = result['url']
         listItemDic['id'] = 0
-        listItemDic['params'] = result['params']
-        listItemDic['isLogin'] = 'yes'
+        if 'params' in result.keys():
+            listItemDic['params'] = result['params']
+        else:
+            listItemDic['params'] = ''
+        listItemDic['isLogin'] = '是'
         if Singleton().getSessionId() == '':
-            listItemDic['isLogin'] = 'no'
+            listItemDic['isLogin'] = '否'
         interfaceDic['listItem'] = listItemDic
 
         if result['code'] == 0:

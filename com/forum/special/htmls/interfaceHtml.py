@@ -3,8 +3,8 @@
 
 DicItems = 'items'
 
-from com.forum.special.htmls.createHtml import dataOutline, createTableHeader, renderItem, htmlTitle, testRegion, htmlFooter, outputFile
-from com.forum.special.tool.testConfig import ExcelItem, ParamList, ExtraResult, OutputName
+from com.forum.special.htmls.createHtml import *
+from com.forum.special.tool.testConfig import *
 
 # 接口显示
 def handleInterfaceData(starttime, endtime, resultDic, configDic):

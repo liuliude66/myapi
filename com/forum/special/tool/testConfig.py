@@ -62,19 +62,20 @@ class TestConfig():
         }
 
     @classmethod
-    def getBetInterfaceData(cls): # 投注布局接口测试
+    def getBetInterfaceData(cls, name): # 投注布局接口测试
         return {
-            OutputName: '投注',
+            OutputName: name,
             ExcelItem: ['编号', '接口名称', 'url', '参数', '是否登录'],
             ParamList: ['id', 'name', 'url', 'params', 'isLogin'],
             ExtraResult: ['返回结果', '是否通过', '请求时长(ms)']
         }
 
     @classmethod
-    def getBetContentData(cls, lottery):  # 投注下注接口测试
+    def getBetContentData(cls, lottery, category):  # 投注下注接口测试
         return {
             OutputName: lottery,
-            ExcelItem: ['编号', '下注内容', '下注金额', '追期期数', '是否成立', '预期成功', '执行人', '备注'],
-            ParamList: ['id', 'name', 'url', 'params', 'isLogin'],
-            ExtraResult: ['url', '请求参数', '是否登录', '返回结果', '是否通过', '请求时长(ms)']
+            ExcelName: '/lottery/投注_' + category,
+            ExcelItem: ['编号', '下注内容', '下注金额', '是否成立', '预期成功', '执行人', '备注'],
+            ParamList: ['id', 'numbers', 'money', 'isFound', 'except','user', 'remark'],
+            ExtraResult: ['返回结果', '是否通过', '请求时长(ms)'],
         }

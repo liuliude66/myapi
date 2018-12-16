@@ -9,8 +9,7 @@ from com.forum.special.tool.testConfig import ExcelName, ParamList
 
 basePath = os.getcwd() + '/files/xlsx/'
 
-class TransLogin:
-    # 解析专项测试用例文件
+class TransTool:
     def TransSpecial(self, configDic):
         try:
             file = xlrd.open_workbook(basePath + '%s.xlsx' % configDic[ExcelName])

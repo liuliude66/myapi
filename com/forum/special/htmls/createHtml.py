@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-import os, time
+import os, time, copy
 
 titles = '接口测试'
 
@@ -78,24 +78,28 @@ def createTableHeader(headItems):
         header += '<td style="vertical-align: middle;"><strong>%s</strong></td>' % headItems[i]
     return header
 
-def renderItem(item, showTds):
+def renderItem(item, showIds):
     listItem = item['listItem']
     isPass = '通过'
     resultClass = 'result_green'
     className = 'success'
     requestTime = item['result']['requestTime']
     # 删除不需要显示的key
-    del item['result']['requestTime']
-    del item['result']['url']
+    showItem = copy.deepcopy(item['result'])
+    delItemList = ['requestTime', 'url']
+    for i in range(len(delItemList)):
+        if delItemList[i] in showItem.keys():
+            del showItem[delItemList[i]]
+
     if item['isPass'] == 1:
         isPass = '失败'
         resultClass = 'result_red'
         className = 'failure'
     trItem = '<tr class="case-tr %s">' % className
-    for i in range(len(showTds)):
-        trItem += '<td style="vertical-align: middle;">%s</td>' % listItem[showTds[i]]
+    for i in range(len(showIds)):
+        trItem += '<td style="vertical-align: middle;">%s</td>' % listItem[showIds[i]]
     # 结果
-    trItem += '<td style="vertical-align: middle;">%s</td>' % item['result']
+    trItem += '<td style="vertical-align: middle;">%s</td>' % showItem
     trItem += '<td class="%s" style="vertical-align: middle;">%s</td>' % (resultClass, isPass)
     trItem += '<td style="vertical-align: middle;">%s</td>' % requestTime
     trItem += '</tr>'

@@ -42,7 +42,7 @@ class BetHttpTool(object):
 
     @classmethod
     def postBetBetting(cls, items):
-        success, json = requset.post(BetModule.urlBetBetting + '?after=1', items)
+        success, json = requset.postJson(BetModule.urlBetBetting + '?after=1', items)
         if success == 0:
             if json['code'] == 0:
                 return 0, json
