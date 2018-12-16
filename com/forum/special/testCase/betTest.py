@@ -11,36 +11,36 @@ from com.forum.special.htmls.interfaceHtml import handleInterfaceData
 
 # 投注模块测试
 class BetTest(PublicHandle):
-    def interfaceLotteryLayoutCase(self): # 彩种布局
+    def interfaceLotteryLayoutCase(self, betLotteryName): # 彩种布局
         starttime = datetime.datetime.now()
-        htmlList = []
         success1, result1 = BetHttpTool.postBetAllLottery()
-        htmlList.append(self.showInterfaceDic(result1, '获取彩种列表：%s个' % len(result1['data'])))
+        # htmlList.append(self.showInterfaceDic(result1, '获取彩种列表：%s个' % len(result1['data'])))
         if success1 == 1:
             print('error')
         else:
             # 循环彩种
             lotteryList = result1['data']
             for i in range(len(lotteryList)):
-                print('进入了%s - %s' % (i, len(lotteryList)))
                 lotteryMes = lotteryList[i]
-                lotteryId = lotteryMes['lotteryId']
-                success2, result2 = BetHttpTool.postBetPlayGroupItems(lotteryId)
-                htmlList.append(self.showInterfaceDic(result2, '%s - 彩种玩法列表' % lotteryMes['name']))
-                if success2 == 1:
-                    print('error')
-                else:
-                    playList = result2['data']
-                    for j in range(len(playList)):
-                        playWayList = playList[j]['playWayData']
-                        for k in range(len(playWayList)):
-                            playWayMes = playWayList[k]
-                            playId = playWayMes['playId']
-                            success3, result3 = BetHttpTool.postBetGetLayoutItem(playId)
-                            htmlList.append(self.showInterfaceDic(result3, '%s - %s - 玩法布局' % (lotteryMes['name'], playWayMes['name'])))
+                if lotteryMes['name'] == betLotteryName:
+                    lotteryHtmlList = []
+                    lotteryId = lotteryMes['lotteryId']
+                    success2, result2 = BetHttpTool.postBetPlayGroupItems(lotteryId)
+                    lotteryHtmlList.append(self.showInterfaceDic(result2, '%s - 彩种玩法列表: %s个' % (lotteryMes['name'], len(result2['data']))))
+                    if success2 == 1:
+                        print('error')
+                    else:
+                        playList = result2['data']
+                        for j in range(len(playList)):
+                            playWayList = playList[j]['playWayData']
+                            for k in range(len(playWayList)):
+                                playWayMes = playWayList[k]
+                                playId = playWayMes['playId']
+                                success3, result3 = BetHttpTool.postBetGetLayoutItem(playId)
+                                lotteryHtmlList.append(self.showInterfaceDic(result3, '%s - %s - 玩法布局' % (lotteryMes['name'], playWayMes['name'])))
             endtime = datetime.datetime.now()
-            handleInterfaceData(starttime, endtime, htmlList, TestConfig().getNormalInterfaceData('彩种布局'))
-            return htmlList
+            handleInterfaceData(starttime, endtime, lotteryHtmlList, TestConfig().getNormalInterfaceData(betLotteryName + '玩法布局'))
+            return
 
     def getLotteryCategory(self, lotteryClassName):
         category = ''
@@ -67,7 +67,6 @@ class BetTest(PublicHandle):
         return category;
 
     def interfaceBetCase(self, loginDic, betLotteryName): # 指定彩种输出
-        htmlList = []
         success1, result1 = BetHttpTool.postBetAllLottery()
         if success1 == 1:
             print('error')
@@ -81,7 +80,7 @@ class BetTest(PublicHandle):
                     print('进入了%s - %s' % (i, len(lotteryList)))
                     lotteryId = lotteryMes['lotteryId']
                     success2, result2 = BetHttpTool.postBetPlayGroupItems(lotteryId)
-                    lotteryHtmlList.append(self.showInterfaceDic(result1, '获取彩种列表'))
+                    # lotteryHtmlList.append(self.showInterfaceDic(result1, '获取彩种列表'))
                     lotteryHtmlList.append(self.showInterfaceDic(result2, '%s彩种玩法列表' % lotteryMes['name']))
                     if success2 == 1:
                         print('error')
@@ -115,7 +114,6 @@ class BetTest(PublicHandle):
                                         jsonStr = json.dumps(betList)
                                         success4, result4 = BetHttpTool.postBetBetting(jsonStr)
                                         lotteryHtmlList.append(self.showInterfaceDic(result4, '投注'))
-                    htmlList.append(lotteryHtmlList)
                     endtime = datetime.datetime.now()
-                    handleInterfaceData(starttime, endtime, loginDic + lotteryHtmlList, TestConfig().getBetInterfaceData(lotteryMes['name']))
-            return htmlList
+                    handleInterfaceData(starttime, endtime, loginDic + lotteryHtmlList, TestConfig().getBetInterfaceData(lotteryMes['name'] + '投注'))
+            return

@@ -13,7 +13,7 @@ def start_interface_html_http():
     LoginTest().specialLoginCase()
 
     # 所有彩种布局请求
-    BetTest().interfaceLotteryLayoutCase()
+    BetTest().interfaceLotteryLayoutCase('三分PK10')
 
     # 投注测试 (登录)
     preDic = LoginTest().interfaceLoginCase()
