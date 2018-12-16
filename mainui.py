@@ -4,10 +4,12 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
+import json
 import datetime
 from com.forum.special.testCase.loginTest import LoginTest
 from com.forum.special.testCase.betTest import BetTest
 from com.forum.special.htmls.loginModuleHtml import *
+from com.forum.special.service.betHttpTool import *
 import threading
 
 
@@ -15,6 +17,16 @@ class AppUI(object):
     path = ''
 
     def __init__(self):
+        self.menu_options = []
+        code, data = BetHttpTool().postBetAllLottery()
+        if code == 0:
+            data = data['data']
+            for item in data:
+                self.menu_options.append(item['name'])
+                print(item['name'])
+        else:
+            return
+
         self.root = Tk()
         self.create_menu(self.root)
         self.root.title("API测试工具")
@@ -26,13 +38,14 @@ class AppUI(object):
 
         self.scr = scrolledtext.ScrolledText(self.root, width=220, height=220, wrap=WORD)
         self.scr.pack()
+
         # scr.grid(column=0, columnspan=3)
 
         # 以下方法用来计算并设置窗体显示时，在屏幕中心居中
         cur_width = self.root.winfo_width()  # get current width
         cur_height = self.root.winfo_height()  # get current height
         scn_width, scn_height = self.root.maxsize()  # get screen width and height
-        tmp_cnf = '550x350+%d+%d' % ((scn_width - cur_width) / 7, (scn_height - cur_height) / 4)
+        tmp_cnf = '550x650+%d+%d' % ((scn_width - cur_width) / 7, (scn_height - cur_height) / 4)
         self.root.geometry(tmp_cnf)
         self.root.mainloop()
 
@@ -49,49 +62,15 @@ class AppUI(object):
 
         # 彩种布局选项
         lottery_layout_menu = Menu(menu, tearoff=0)
-        lottery_layout_menu.add_command(label="11选5", command=lambda: self.lottery_layout('11选5'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="PC蛋蛋", command=lambda: self.lottery_layout('PC蛋蛋'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="PK10", command=lambda: self.lottery_layout('PK10'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="六合彩", command=lambda: self.lottery_layout('六合彩'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="幸运28", command=lambda: self.lottery_layout('幸运28'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="快三", command=lambda: self.lottery_layout('快三'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="排列三", command=lambda: self.lottery_layout('排列三'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="时时乐", command=lambda: self.lottery_layout('时时乐'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="时时彩", command=lambda: self.lottery_layout('时时彩'))
-        lottery_layout_menu.add_separator()
-        lottery_layout_menu.add_command(label="福彩3d", command=lambda: self.lottery_layout('福彩3d'))
-        lottery_layout_menu.add_separator()
+        for item in self.menu_options:
+            lottery_layout_menu.add_command(label=item, command=lambda: self.lottery_layout(item))
+            lottery_layout_menu.add_separator()
 
         # 彩种投注选项
         lottery_bet_menu = Menu(menu, tearoff=0)
-        lottery_bet_menu.add_command(label="11选5", command=lambda: self.lottery_bet('11选5'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="PC蛋蛋", command=lambda: self.lottery_bet('PC蛋蛋'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="PK10", command=lambda: self.lottery_bet('PK10'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="六合彩", command=lambda: self.lottery_bet('六合彩'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="幸运28", command=lambda: self.lottery_bet('幸运28'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="快三", command=lambda: self.lottery_bet('快三'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="排列三", command=lambda: self.lottery_bet('排列三'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="时时乐", command=lambda: self.lottery_bet('时时乐'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="时时彩", command=lambda: self.lottery_bet('时时彩'))
-        lottery_bet_menu.add_separator()
-        lottery_bet_menu.add_command(label="福彩3d", command=lambda: self.lottery_bet('福彩3d'))
-        lottery_bet_menu.add_separator()
+        for item in self.menu_options:
+            lottery_bet_menu.add_command(label=item, command=lambda: self.lottery_layout(item))
+            lottery_bet_menu.add_separator()
 
         about_menu = Menu(menu, tearoff=0)
         about_menu.add_command(label="版本号：V1.0.0")
