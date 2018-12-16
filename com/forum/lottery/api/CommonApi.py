@@ -22,11 +22,11 @@ class CommonApi(Api):
         session = requests.session()
         if '/passport/login.do' in self.url:
             distribute = self.domain + '/passport/distribute_sessionid.do'
-            distribute_r = session.post(distribute, headers=self.header, timeout=self.timeout)
+            distribute_r = session.post(distribute, headers=self.header, timeout=self.timeout, verify=False)
             distribute_response = json.loads(distribute_r.text)
             GlobalConfig['SESSION_ID'] = distribute_response['data']['sessionid']
             self.header['sessionid'] = GlobalConfig['SESSION_ID']
-            login_r = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout)
+            login_r = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout, verify=False)
             login_response = json.loads(login_r.text)
             GlobalConfig['USER_ID'] = login_response['data']['userId']
             self.api_response = login_response
@@ -36,7 +36,7 @@ class CommonApi(Api):
                 json_temp = eval(self.parameter)
                 # json_temp['userid'] = GlobalConfig['USER_ID']
                 self.parameter = json.dumps(json_temp)
-            response = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout)
+            response = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout, verify=False)
             self.api_response = json.loads(response.text)
             # if res['code'] != 0:  # 开始执行登录操作
             #     content = self.url + "\n" + res['msg']

@@ -3,6 +3,7 @@
 
 from tkinter import *
 from tkinter import ttk
+from tkinter import scrolledtext
 import datetime
 from com.forum.special.testCase.loginTest import LoginTest
 from com.forum.special.testCase.betTest import BetTest
@@ -23,6 +24,10 @@ class AppUI(object):
                                    text='执行日志打印')
         self.label_log.pack()
 
+        self.scr = scrolledtext.ScrolledText(self.root, width=220, height=220, wrap=WORD)
+        self.scr.pack()
+        # scr.grid(column=0, columnspan=3)
+
         # 以下方法用来计算并设置窗体显示时，在屏幕中心居中
         cur_width = self.root.winfo_width()  # get current width
         cur_height = self.root.winfo_height()  # get current height
@@ -42,12 +47,50 @@ class AppUI(object):
         login_menu.add_command(label="执行", command=self.login)
         login_menu.add_separator()
 
+        # 彩种布局选项
         lottery_layout_menu = Menu(menu, tearoff=0)
-        lottery_layout_menu.add_command(label="执行", command=self.lottery_layout)
+        lottery_layout_menu.add_command(label="11选5", command=lambda: self.lottery_layout('11选5'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="PC蛋蛋", command=lambda: self.lottery_layout('PC蛋蛋'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="PK10", command=lambda: self.lottery_layout('PK10'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="六合彩", command=lambda: self.lottery_layout('六合彩'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="幸运28", command=lambda: self.lottery_layout('幸运28'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="快三", command=lambda: self.lottery_layout('快三'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="排列三", command=lambda: self.lottery_layout('排列三'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="时时乐", command=lambda: self.lottery_layout('时时乐'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="时时彩", command=lambda: self.lottery_layout('时时彩'))
+        lottery_layout_menu.add_separator()
+        lottery_layout_menu.add_command(label="福彩3d", command=lambda: self.lottery_layout('福彩3d'))
         lottery_layout_menu.add_separator()
 
+        # 彩种投注选项
         lottery_bet_menu = Menu(menu, tearoff=0)
-        lottery_bet_menu.add_command(label="执行", command=self.lottery_bet)
+        lottery_bet_menu.add_command(label="11选5", command=lambda: self.lottery_bet('11选5'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="PC蛋蛋", command=lambda: self.lottery_bet('PC蛋蛋'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="PK10", command=lambda: self.lottery_bet('PK10'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="六合彩", command=lambda: self.lottery_bet('六合彩'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="幸运28", command=lambda: self.lottery_bet('幸运28'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="快三", command=lambda: self.lottery_bet('快三'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="排列三", command=lambda: self.lottery_bet('排列三'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="时时乐", command=lambda: self.lottery_bet('时时乐'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="时时彩", command=lambda: self.lottery_bet('时时彩'))
+        lottery_bet_menu.add_separator()
+        lottery_bet_menu.add_command(label="福彩3d", command=lambda: self.lottery_bet('福彩3d'))
         lottery_bet_menu.add_separator()
 
         about_menu = Menu(menu, tearoff=0)
@@ -74,27 +117,31 @@ class AppUI(object):
         exec_thread.setDaemon(True)
         exec_thread.start()
 
-    def lottery_layout(self):
+    def lottery_layout(self, lottery_name='时时彩'):
         self.create_log("获取布局开始执行...")
-        exec_thread = threading.Thread(target=self.lottery_layout_action)
+        exec_thread = threading.Thread(target=self.lottery_layout_action, args=(lottery_name,))
         exec_thread.setDaemon(True)
         exec_thread.start()
 
-    def lottery_bet(self):
-        self.create_log('hello lottery_bet...')
+    def lottery_bet(self, lottery_name='时时彩'):
+        self.create_log("投注开始执行...")
+        exec_thread = threading.Thread(target=self.lottery_bet_action, args=(lottery_name,))
+        exec_thread.setDaemon(True)
+        exec_thread.start()
 
     def create_log(self, content):
-        message = self.label_log.cget("text")
+        message = self.label_log.cget('text')
         message += ("\n" + content)
-        self.label_log.config(text=message)
+        # print(message)
+        # self.scr.insert(1.0, message)
+        length = len(message)
+        if length > 300:
+            message = message[100: length]
+        self.label_log.configure(text=message)
 
     def register_action(self):
         try:
-            start_time = datetime.datetime.now()
-            # 注册专项
-            result_dic = LoginTest().specialRegisteCase()
-            end_time = datetime.datetime.now()
-            handleRegisterHtmlData(start_time, end_time, result_dic)
+            LoginTest().specialRegisteCase()
             self.create_log("注册结束执行...")
         except Exception as ex:
             self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
@@ -111,29 +158,24 @@ class AppUI(object):
             self.create_log("！！！！！！！！！登录执行异常！！！！！！！！！")
             self.create_log(str(ex.args))
 
-    def lottery_layout_action(self):
+    def lottery_layout_action(self, lottery_name):
         try:
-            start_time = datetime.datetime.now()
-            result_dic = BetTest().interfaceLotteryLayoutCase()
-            end_time = datetime.datetime.now()
-            print(result_dic)
-            # handleLoginHtmlData(start_time, end_time, result_dic)
+            print(lottery_name)
+            BetTest().interfaceLotteryLayoutCase(lottery_name)
             self.create_log("获取布局结束执行...")
         except Exception as ex:
             self.create_log("！！！！！！！！！获取布局执行异常！！！！！！！！！")
             self.create_log(str(ex.args))
 
-    def lottery_bet_action(self):
+    def lottery_bet_action(self, lottery_name):
         try:
-            start_time = datetime.datetime.now()
-            result_dic = BetTest().interfaceBetCase()
-            end_time = datetime.datetime.now()
-            print(result_dic)
-            # handleLoginHtmlData(start_time, end_time, result_dic)
-            self.create_log("获取布局结束执行...")
+            pre_dic = LoginTest().interfaceLoginCase()
+            BetTest().interfaceBetCase(pre_dic, lottery_name)
+            self.create_log("投注结束执行...")
         except Exception as ex:
-            self.create_log("！！！！！！！！！获取布局执行异常！！！！！！！！！")
+            self.create_log("！！！！！！！！！投注执行异常！！！！！！！！！")
             self.create_log(str(ex.args))
+
 
 if __name__ == "__main__":
     AppUI()

@@ -4,7 +4,7 @@
 GlobalConfig = {
     'MAX_RETRY': 3,  # 请求错误最大重试次数
     'REQUEST_TIMEOUT': 15,  # 网络超时请求时间
-    'DOMAIN': 'http://msg2.0234.co',  # 网络请求域名
+    'DOMAIN': 'http://5550987.com',  # 网络请求域名
     'Client_version': "5.2.3", #当前版本号
     'SESSION_ID': '',  # sessionid 请求头中
     'USER_ID': '',  # userid 可能用做参数
@@ -13,5 +13,5 @@ GlobalConfig = {
     'ERROR_COUNT': 0,  # 异常的个数
     'EXCEPTION_COUNT': 0,  # 未知错误的个数
     'REPORT_PATH': 'D:/PycharmProjects/APITest/files/report/',  # 测试报告文档
-    'TEST_CASE_PATH': 'D:/PycharmProjects/APITest/test_case/case123.xlsx'  # 测试用例路径
+    'TEST_CASE_PATH': 'D:/PycharmProjects/APITest/files/xlsx/case123.xlsx'  # 测试用例路径
 }

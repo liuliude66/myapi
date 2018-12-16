@@ -1,2 +1,3 @@
 1、入口 main.py 可以粗略查看接口运行是否接通；
 2、入口 mainui.py 可以进行界面点击操作，能 测试的接口参见生成的UI；
+3、请求的“测试用例文档”路径设置在com/forum/lottery/config/GlobalParams路径下的GlobalConfig文件TEST_CASE_PATH选项
