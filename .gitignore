@@ -2,4 +2,4 @@
 *.pyc
 venv/
 com/forum/lottery/report.txt
-files/
+files/report/
