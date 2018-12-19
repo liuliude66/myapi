@@ -26,6 +26,9 @@ class CommonApi(Api):
             distribute_response = json.loads(distribute_r.text)
             GlobalConfig['SESSION_ID'] = distribute_response['data']['sessionid']
             self.header['sessionid'] = GlobalConfig['SESSION_ID']
+            if self.parameter:
+                json_temp = eval(self.parameter)
+                self.parameter = json.dumps(json_temp)
             login_r = session.post(self.url, headers=self.header, data=self.parameter, timeout=self.timeout, verify=False)
             login_response = json.loads(login_r.text)
             GlobalConfig['USER_ID'] = login_response['data']['userId']

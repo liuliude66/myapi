@@ -113,8 +113,8 @@ class LoginTest(PublicHandle):
             htmlList.append(self.showInterfaceDic(result2, '注册'))
         return htmlList
 
-    def interfaceLoginCase(self):
-        configDic = TestConfig.getLoginInterfaceData()
+    def interfaceLoginCase(self, username, password):
+        configDic = TestConfig.getLoginInterfaceData(username, password)
         htmlList = []
         success1, result1 = LoginHttpTool.postGetSessionid()
         htmlList.append(self.showInterfaceDic(result1, '获取sessionId'))

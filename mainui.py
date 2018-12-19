@@ -4,7 +4,8 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
-import json
+
+from com.forum.lottery.config.GlobalParams import GlobalConfig
 import datetime
 from com.forum.special.testCase.loginTest import LoginTest
 from com.forum.special.testCase.betTest import BetTest
@@ -148,7 +149,8 @@ class AppUI(object):
 
     def lottery_bet_action(self, lottery_name):
         try:
-            pre_dic = LoginTest().interfaceLoginCase()
+            #  账号 密码
+            pre_dic = LoginTest().interfaceLoginCase(GlobalConfig['username'], GlobalConfig['password'])
             BetTest().interfaceBetCase(pre_dic, lottery_name)
             self.create_log("投注结束执行...")
         except Exception as ex:

@@ -52,13 +52,13 @@ class TestConfig():
         }
 
     @classmethod
-    def getLoginInterfaceData(cls): # 登录接口测试
+    def getLoginInterfaceData(cls, username, password): # 登录接口测试
         return {
             OutputName: '登录',
             ExcelItem: ['编号', '接口名称', 'url'],
             ParamList: ['id', 'name', 'url'],
             ExtraResult: ['返回结果', '是否通过', '请求时长(ms)'],
-            PostParam: {'account': 'well', 'password': '123123'}
+            PostParam: {'account': username, 'password': password}
         }
 
     @classmethod
