@@ -1,6 +1,8 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
+from rootPath import getRootPath
+
 GlobalConfig = {
     'MAX_RETRY': 3,  # 请求错误最大重试次数
     'REQUEST_TIMEOUT': 15,  # 网络超时请求时间
@@ -14,6 +16,6 @@ GlobalConfig = {
     'FAILURE_COUNT': 0,  # 失败的个数
     'ERROR_COUNT': 0,  # 异常的个数
     'EXCEPTION_COUNT': 0,  # 未知错误的个数
-    'REPORT_PATH': 'D:/PycharmProjects/APITest/files/report/',  # 测试报告文档路径
-    'TEST_CASE_PATH': 'D:/PycharmProjects/APITest/files/xlsx/case123.xlsx'  # 测试用例路径
+    'REPORT_PATH': getRootPath() + '/files/report/',  # 测试报告文档路径
+    'TEST_CASE_PATH': getRootPath() + '/files/xlsx/case123.xlsx'  # 测试用例路径
 }

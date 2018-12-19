@@ -3,6 +3,8 @@
 
 import os, time, copy
 
+from rootPath import getRootPath
+
 titles = '接口测试'
 
 def htmlTitle(titles):
@@ -126,7 +128,7 @@ htmlFooter = '''</div></div></table><script src="https://code.jquery.com/jquery.
 
 def outputFile(text, fileName):
     day = time.strftime("%Y%m%d%H%M", time.localtime(time.time()))
-    basdir = os.getcwd()
+    basdir = getRootPath()
     filepath = os.path.join(basdir + '/files/report/%s-%s.html' % (day, fileName))
     # if os.path.exists(filepath) is False:
     #     os.system(r'touch %s' % filepath)

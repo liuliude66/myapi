@@ -1,18 +1,17 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-import xlrd, os
+import xlrd
 
 from xlrd import xldate_as_tuple
 from datetime import datetime
 from com.forum.special.tool.testConfig import ExcelName, ParamList
-
-basePath = os.getcwd() + '/files/xlsx/'
+from rootPath import getRootPath
 
 class TransTool:
     def TransSpecial(self, configDic):
         try:
-            file = xlrd.open_workbook(basePath + '%s.xlsx' % configDic[ExcelName])
+            file = xlrd.open_workbook(getRootPath() + '/files/xlsx/%s.xlsx' % configDic[ExcelName])
             me = file.sheets()[0]
             nrows = me.nrows
             result = []

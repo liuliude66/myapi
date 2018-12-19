@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# @Author  : leizi
+#! python
+# -*- coding:utf-8 -*-
 
 from com.forum.special.testCase.loginTest import LoginTest
 from com.forum.special.testCase.betTest import BetTest
