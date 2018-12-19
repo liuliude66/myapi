@@ -16,7 +16,7 @@ def start_interface_html_http():
     BetTest().interfaceLotteryLayoutCase('三分PK10')
 
     # 投注测试 (登录)
-    preDic = LoginTest().interfaceLoginCase()
+    preDic = LoginTest().interfaceLoginCase('lilei8', '888888')
     BetTest().interfaceBetCase(preDic, '三分PK10')
 
 if __name__ == '__main__':
