@@ -16,8 +16,8 @@ class TestConfig():
             OutputName: '注册',
             ExcelName: 'special_register',
             ExcelItem: ['编号', '账号', '密码', '真实姓名', 'QQ', '手机号', '邀请码', '微信', '是否成立', '预期成功', '执行人', '备注'],
-            ParamList: ['id', 'account', 'password', 'realName', 'qq', 'phone', 'referer', 'wechat', 'isFound', 'except','user', 'remark'],
-            PostParamList: ['account', 'password', 'realName', 'qq', 'phone', 'referer', 'wechat'],
+            ParamList: ['id', 'account', 'password', 'realName', 'qq', 'phone', 'referrer', 'wechat', 'isFound', 'except','user', 'remark'],
+            PostParamList: ['account', 'password', 'realName', 'qq', 'phone', 'referrer', 'wechat'],
             ExtraResult: ['返回结果', '是否通过', '请求时长(ms)']
         }
 
