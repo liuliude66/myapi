@@ -5,7 +5,7 @@ DicItems = 'items'
 
 from com.forum.special.htmls.createHtml import *
 from com.forum.special.service.urlService import LoginModule
-from com.forum.special.tool.testConfig import *
+from com.forum.tool.testConfig import *
 
 # 注册专项
 def handleRegisterHtmlData(starttime, endtime, resultDic):

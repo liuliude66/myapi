@@ -3,7 +3,7 @@
 
 from com.forum.special.service.serviceTool import Request
 from com.forum.special.service.urlService import LoginModule
-from com.forum.lottery.common.Singleton import Singleton
+from com.forum.public.singleton import Singleton
 
 requset = Request()
 

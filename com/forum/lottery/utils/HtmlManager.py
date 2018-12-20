@@ -1,15 +1,15 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-import time
-from com.forum.lottery.config.GlobalParams import GlobalConfig
 
+import time
+
+from com.forum.config.globalConfig import GlobalConfig
 
 # 创建HTML文档
-def create_html_file():
+def create_html_file(fileName):
     localtime = time.strftime("%Y%m%d%H%M%S", time.localtime())
-    GlobalConfig['REPORT_PATH'] = GlobalConfig['REPORT_PATH'] + localtime + ".html"
+    GlobalConfig['REPORT_PATH'] = GlobalConfig['REPORT_PATH'] + '%s_%s.html' %(localtime, fileName)
     print(GlobalConfig['REPORT_PATH'])
-
 
 def generate_html_head():
     return '''<!DOCTYPE html>
@@ -51,9 +51,9 @@ def generate_html_head():
                     <td class='col-md-1'><strong>预期</strong></td>
                     <td class='col-md-4'><strong>实际返回</strong></td>  
                     <td class='col-md-1'><strong>结果</strong></td>
+                    <td class='col-md-1'><strong>请求时长(ms)</strong></td>
                 </tr>
     '''
-
 
 def summarize_html(start, end, pass_count, fail_count, exception_count, error_count):
     start_t = int(time.mktime(time.strptime(start, "%Y-%m-%d %H:%M:%S")))
@@ -125,7 +125,7 @@ def generate_html_tail():
     </body></html>'''
 
 
-def generate_html_file(header, case_name, url, parameter, expect, real, result):
+def generate_html_file(header, case_name, url, parameter, expect, real, result, requestTime):
     return '''
     <tr class="case-tr %s">
         <td style='text-align:center;'>%s</td>
@@ -134,5 +134,6 @@ def generate_html_file(header, case_name, url, parameter, expect, real, result):
         <td style='text-align:center;'>%s</td>
         <td style="overflow: hidden;text-overflow: ellipsis;word-break:break-all;word-wrap:break-word;white-space: nowrap;">%s</td>
         %s
+        <td style='text-align:center;'>%s</td>
     </tr>
-    ''' % (header, case_name, parameter, url, expect, real, pass_result(result))
+    ''' % (header, case_name, parameter, url, expect, real, pass_result(result), requestTime)

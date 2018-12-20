@@ -6,7 +6,7 @@ import requests
 
 from com.forum.lottery.api.Api import Api
 from com.forum.lottery.common.NotSuccessException import NotSuccessException
-from com.forum.lottery.common.Singleton import Singleton
+from com.forum.public.singleton import Singleton
 
 
 # 模板Api接口

@@ -1,10 +1,12 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
+
 from __future__ import unicode_literals
+
 import json
+
 from com.forum.lottery.utils.HtmlManager import *
 from com.forum.lottery.utils.Report import FileHelper
-
 
 # API父类
 class Api(object):
@@ -16,6 +18,7 @@ class Api(object):
     api_response = {}
     expect = ''
     case_name = ''
+    requestTime = 0
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
@@ -57,9 +60,8 @@ class Api(object):
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter, ensure_ascii=False),
-                                  self.expect,
-                                  json.dumps(response, ensure_ascii=False), result)
+        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter, ensure_ascii=False), self.expect,
+                                  json.dumps(response, ensure_ascii=False), result, self.requestTime)
         helper = FileHelper()
         helper.write(html)
 

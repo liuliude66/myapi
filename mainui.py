@@ -5,7 +5,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 
-from com.forum.lottery.config.GlobalParams import GlobalConfig
+from com.forum.config.globalConfig import GlobalConfig
 import datetime
 from com.forum.special.testCase.loginTest import LoginTest
 from com.forum.special.testCase.betTest import BetTest

@@ -3,8 +3,9 @@
 
 import datetime
 
-from com.forum.special.tool.transTool import TransTool
-from com.forum.special.tool.assertTool import assertCode
+from com.forum.tool.transTool import TransTool
+from com.forum.tool.assertTool import assertCode
+from com.forum.tool.testConfig import *
 from com.forum.special.service.loginHttpTool import LoginHttpTool
 from com.forum.special.testCase.publicHandle import PublicHandle
 from com.forum.special.htmls.loginModuleHtml import *

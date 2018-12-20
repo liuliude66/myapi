@@ -1,6 +1,6 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-from com.forum.lottery.config.GlobalParams import GlobalConfig
+from com.forum.config.globalConfig import GlobalConfig
 
 class FileHelper(object):
 
@@ -18,3 +18,4 @@ class FileHelper(object):
         finally:
             if not fo:
                 fo.close()
+

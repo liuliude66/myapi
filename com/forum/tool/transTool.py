@@ -5,7 +5,7 @@ import xlrd
 
 from xlrd import xldate_as_tuple
 from datetime import datetime
-from com.forum.special.tool.testConfig import ExcelName, ParamList
+from com.forum.tool.testConfig import ExcelName, ParamList
 from rootPath import getRootPath
 
 class TransTool:

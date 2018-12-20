@@ -79,3 +79,13 @@ class TestConfig():
             ParamList: ['id', 'numbers', 'money', 'isFound', 'except','user', 'remark'],
             ExtraResult: ['返回结果', '是否通过', '请求时长(ms)'],
         }
+
+    @classmethod
+    def getAllInterfaceData(cls, fileName, module):  # 全部接口测试
+        return {
+            OutputName: module,
+            ExcelName: fileName,
+            ExcelItem: ['编号', '接口名称', '请求参数', 'url', '请求方式', '期望值', '是否测试'],
+            ParamList: ['id', 'case_name', 'parameter', 'request_url', 'request_method', 'request_expect', 'test_switch'],
+            ExtraResult: ['返回结果', '是否通过', '请求时长(ms)'],
+        }
