@@ -23,9 +23,9 @@ class Api(object):
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
-        self.header['user-agent'] = 'SSC/5.2.3(Android 7.0.0; version)'
+        self.header['user-agent'] = GlobalConfig['USER_AGENT']
         self.header['X-Requested-With'] = 'XMLHttpRequest'
-        self.header['client-version'] = '5.2.3'
+        self.header['client-version'] = GlobalConfig['Client_version']
         self.header['sessionid'] = ''
 
     def run(self):
@@ -39,7 +39,7 @@ class Api(object):
             except Exception as e:
                 print("重试次数:" + str(index))
                 try:
-                    response = '请求异常:' + str(urllib.request.urlopen(GlobalConfig['DOMAIN'] + self.url).getcode()) + str(tuple(e.args))
+                    response = '请求异常:' + str(urllib.request.urlopen(self.url).getcode()) + str(tuple(e.args))
                 except Exception as e:
                     response = '服务器url请求错误'
         print(response)
