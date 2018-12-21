@@ -9,7 +9,6 @@ from com.forum.config.globalConfig import GlobalConfig
 def create_html_file(fileName):
     localtime = time.strftime("%Y%m%d%H%M%S", time.localtime())
     GlobalConfig['REPORT_PATH'] = GlobalConfig['REPORT_PATH'] + '%s_%s.html' %(localtime, fileName)
-    print(GlobalConfig['REPORT_PATH'])
 
 def generate_html_head():
     return '''<!DOCTYPE html>

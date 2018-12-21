@@ -41,8 +41,7 @@ def start_interface_html_http():
     # handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
 
     # pc接口测试
-    handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_pc', 'pc接口测试')),
-                   'pc接口测试')
+    handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_pc', 'pc接口测试')), 'pc接口测试')
 
 if __name__ == '__main__':
     start_interface_html_http()
