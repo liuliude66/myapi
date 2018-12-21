@@ -2,12 +2,13 @@
 # -*- coding:utf-8 -*-
 
 import time
-
+from rootPath import getRootPath
 from com.forum.config.globalConfig import GlobalConfig
 
 # 创建HTML文档
 def create_html_file(fileName):
     localtime = time.strftime("%Y%m%d%H%M%S", time.localtime())
+    GlobalConfig['REPORT_PATH'] = getRootPath() + '/files/report/'
     GlobalConfig['REPORT_PATH'] = GlobalConfig['REPORT_PATH'] + '%s_%s.html' %(localtime, fileName)
 
 def generate_html_head():

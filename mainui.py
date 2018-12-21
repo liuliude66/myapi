@@ -12,6 +12,7 @@ from com.forum.special.testCase.betTest import BetTest
 from com.forum.special.htmls.loginModuleHtml import *
 from com.forum.special.service.betHttpTool import *
 import threading
+from main import *
 
 
 class AppUI(object):
@@ -61,6 +62,22 @@ class AppUI(object):
         login_menu.add_command(label="执行", command=self.login)
         login_menu.add_separator()
 
+        api_pc_menu = Menu(menu, tearoff=0)
+        api_pc_menu.add_command(label="执行", command=self.pc_service)
+        api_pc_menu.add_separator()
+
+        api_app_menu = Menu(menu, tearoff=0)
+        api_app_menu.add_command(label="执行", command=self.app_service)
+        api_app_menu.add_separator()
+
+        api_agent_menu = Menu(menu, tearoff=0)
+        api_agent_menu.add_command(label="执行", command=self.agent_service)
+        api_agent_menu.add_separator()
+
+        api_admin_menu = Menu(menu, tearoff=0)
+        api_admin_menu.add_command(label="执行", command=self.admin_service)
+        api_admin_menu.add_separator()
+
         # 彩种布局选项
         lottery_layout_menu = Menu(menu, tearoff=0)
         for item in self.menu_options:
@@ -79,9 +96,13 @@ class AppUI(object):
         # 在菜单栏中添加以下一级菜单
         menu.add_cascade(label="注册专项", menu=register_menu)
         menu.add_cascade(label="登录专项", menu=login_menu)
-        menu.add_cascade(label="彩种布局", menu=lottery_layout_menu)
-        menu.add_cascade(label="彩种投注", menu=lottery_bet_menu)
-        menu.add_cascade(label="关于我们", menu=about_menu)
+        # menu.add_cascade(label="彩种布局", menu=lottery_layout_menu)
+        # menu.add_cascade(label="彩种投注", menu=lottery_bet_menu)
+        menu.add_cascade(label="PC所有接口测试", menu=api_pc_menu)
+        menu.add_cascade(label="APP所有接口测试", menu=api_app_menu)
+        menu.add_cascade(label="代理接口测试", menu=api_agent_menu)
+        menu.add_cascade(label="后台管理接口测试", menu=api_admin_menu)
+        # menu.add_cascade(label="关于我们", menu=about_menu)
 
         root['menu'] = menu
 
@@ -94,6 +115,30 @@ class AppUI(object):
     def login(self):
         self.create_log("登录开始执行...")
         exec_thread = threading.Thread(target=self.login_action)
+        exec_thread.setDaemon(True)
+        exec_thread.start()
+
+    def pc_service(self):
+        self.create_log("pc接口测试开始执行...")
+        exec_thread = threading.Thread(target=self.pc_service_action)
+        exec_thread.setDaemon(True)
+        exec_thread.start()
+
+    def app_service(self):
+        self.create_log("app接口测试开始执行...")
+        exec_thread = threading.Thread(target=self.app_service_action)
+        exec_thread.setDaemon(True)
+        exec_thread.start()
+
+    def agent_service(self):
+        self.create_log("代理接口测试开始执行...")
+        exec_thread = threading.Thread(target=self.agent_service_action)
+        exec_thread.setDaemon(True)
+        exec_thread.start()
+
+    def admin_service(self):
+        self.create_log("后台管理接口测试开始执行...")
+        exec_thread = threading.Thread(target=self.admin_service_action)
         exec_thread.setDaemon(True)
         exec_thread.start()
 
@@ -123,6 +168,42 @@ class AppUI(object):
         try:
             LoginTest().specialRegisteCase()
             self.create_log("注册结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
+
+    def pc_service_action(self):
+        try:
+            handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_pc', 'pc接口测试')),
+                           'pc接口测试')
+            self.create_log("pc接口测试结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
+
+    def app_service_action(self):
+        try:
+            handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_app', 'app接口测试')),
+                           'app接口测试')
+            self.create_log("app接口测试结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
+
+    def agent_service_action(self):
+        try:
+            handleTestData(
+                TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_agent_mobile', '代理接口测试')),
+                '代理接口测试')
+            self.create_log("代理接口测试结束执行...")
+        except Exception as ex:
+            self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
+            self.create_log(str(ex.args))
+
+    def admin_service_action(self):
+        try:
+            handleAdminTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
+            self.create_log("后台管理接口测试结束执行...")
         except Exception as ex:
             self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")
             self.create_log(str(ex.args))
