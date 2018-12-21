@@ -44,6 +44,7 @@ def generate_html_head():
             <div class="btn-group" role="group" aria-label="..."></div>
             <table class="table table-hover table-condensed table-bordered" style="word-wrap:break-word; word-break:break-all;  margin-top: 7px; table-layout: fixed;">
                 <tr style='text-align:center;'>
+                    <td class='col-md-1' style='width:40px'><strong>编号</strong></td>
                     <td class='col-md-1'><strong>用例名字</strong></td>
                     <td class='col-md-2'><strong>请求参数</strong></td>
                     <td class='col-md-3'><strong>url</strong></td>
@@ -82,7 +83,7 @@ def pass_result(tend):
         htl = '''<td bgcolor="green" style="text-align:center;color:white;">成功</td>'''
     elif tend == 'fail':
         htl = '''<td bgcolor="red" style="text-align:center;color:white;">失败</td>'''
-    elif tend == 'exception':
+    elif tend == 'error':
         htl = '''<td bgcolor="yellow" style="text-align:center;">执行异常</td>'''
     else:
         htl = '<td bgcolor="crimson" style="text-align:center;">输入期望值</td>'
@@ -124,9 +125,10 @@ def generate_html_tail():
     </body></html>'''
 
 
-def generate_html_file(header, case_name, url, parameter, expect, real, result, requestTime):
+def generate_html_file(header, index, case_name, url, parameter, expect, real, result, requestTime):
     return '''
     <tr class="case-tr %s">
+        <td style='text-align:center;'>%s</td>
         <td style='text-align:center;'>%s</td>
         <td>%s</td>
         <td>%s</td>
@@ -135,4 +137,4 @@ def generate_html_file(header, case_name, url, parameter, expect, real, result, 
         %s
         <td style='text-align:center;'>%s</td>
     </tr>
-    ''' % (header, case_name, parameter, url, expect, real, pass_result(result), requestTime)
+    ''' % (header, index, case_name, parameter, url, expect, real, pass_result(result), requestTime)

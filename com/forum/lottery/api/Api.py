@@ -20,6 +20,7 @@ class Api(object):
     case_name = ''
     requestTime = 0
     formData = 0
+    index = 0
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
@@ -57,13 +58,16 @@ class Api(object):
                 GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
                 temp = dict()
                 temp['code'] = response['code']
-                temp['msg'] = response['msg']
+                if 'msg' in response.keys():
+                    temp['msg'] = response['msg']
+                else:
+                    temp['msg'] = '后台最后返回下msg'
                 response = temp
         except Exception as ex:
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(th_header, self.case_name, self.url, json.dumps(self.parameter, ensure_ascii=False), self.expect,
+        html = generate_html_file(th_header, self.index, self.case_name, self.url, self.parameter, self.expect,
                                   json.dumps(response, ensure_ascii=False), result, self.requestTime)
         helper = FileHelper()
         helper.write(html)
