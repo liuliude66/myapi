@@ -12,13 +12,14 @@ from com.forum.special.service.urlService import *
 # 模板Api接口
 class CommonApi(Api):
 
-    def __init__(self, url, parameter, case_name, expect, formData):
+    def __init__(self, url, parameter, case_name, expect, formData, index):
         Api.__init__(self)
         self.url = self.domain + url
         self.parameter = parameter
         self.case_name = case_name
         self.expect = expect
         self.formData = formData
+        self.index = index
 
     def action(self):
         session = requests.session()

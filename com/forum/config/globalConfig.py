@@ -17,4 +17,5 @@ GlobalConfig = {
     'ERROR_COUNT': 0,  # 异常的个数
     'EXCEPTION_COUNT': 0,  # 未知错误的个数
     'REPORT_PATH': getRootPath() + '/files/report/',  # 测试报告文档路径
+    'USER_AGENT': 'SSCBeta'
 }
