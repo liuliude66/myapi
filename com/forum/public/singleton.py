@@ -6,6 +6,7 @@ class Singleton(object):
     __sessionid = ''
     __version = '5.2.3'
     __userid = ''
+    __access_token = ''
 
     __instance = None
     def __new__(cls, *args, **kwargs):  # 这里不能使用__init__，因为__init__是在instance已经生成以后才去调用的
@@ -18,6 +19,12 @@ class Singleton(object):
 
     def getSessionId(self):
         return self.__sessionid
+
+    def setAccessToken(self, access_token):
+        self.__access_token = access_token
+
+    def getAccessToken(self):
+        return self.__access_token
 
     def setUserId(self, __userid):
         self.__userid = __userid
