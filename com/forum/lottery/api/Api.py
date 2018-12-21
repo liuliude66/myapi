@@ -48,21 +48,25 @@ class Api(object):
         th_header = 'hello test result'
         try:
             if isinstance(response, str):
-                result = 'exception'
-                GlobalConfig['EXCEPTION_COUNT'] = GlobalConfig['EXCEPTION_COUNT'] + 1
+                result = 'error'
+                GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             elif self.expect == response['code']:
                 result = 'pass'
                 GlobalConfig['SUCCESS_COUNT'] = GlobalConfig['SUCCESS_COUNT'] + 1
             else:
-                result = 'fail'
-                GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
-                temp = dict()
-                temp['code'] = response['code']
-                if 'msg' in response.keys():
-                    temp['msg'] = response['msg']
+                if self.expect == '':
+                    result = 'exception'
+                    GlobalConfig['EXCEPTION_COUNT'] = GlobalConfig['EXCEPTION_COUNT'] + 1
                 else:
-                    temp['msg'] = '后台最后返回下msg'
-                response = temp
+                    result = 'fail'
+                    GlobalConfig['FAILURE_COUNT'] = GlobalConfig['FAILURE_COUNT'] + 1
+                    temp = dict()
+                    temp['code'] = response['code']
+                    if 'msg' in response.keys():
+                        temp['msg'] = response['msg']
+                    else:
+                        temp['msg'] = '后台最后返回下msg'
+                    response = temp
         except Exception as ex:
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
