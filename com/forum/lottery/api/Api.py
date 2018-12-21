@@ -19,6 +19,7 @@ class Api(object):
     expect = ''
     case_name = ''
     requestTime = 0
+    formData = 0
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
