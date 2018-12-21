@@ -42,11 +42,10 @@ class Api(object):
         # 保存测试结果
         th_header = 'hello test result'
         try:
-            expect_json = eval(self.expect)
             if isinstance(response, str):
                 result = 'exception'
                 GlobalConfig['EXCEPTION_COUNT'] = GlobalConfig['EXCEPTION_COUNT'] + 1
-            elif expect_json['code'] == response['code']:
+            elif self.expect == response['code']:
                 result = 'pass'
                 GlobalConfig['SUCCESS_COUNT'] = GlobalConfig['SUCCESS_COUNT'] + 1
             else:

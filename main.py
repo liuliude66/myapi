@@ -17,7 +17,7 @@ def handleTestData(items, fileName):
     start = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     for item in items:
         print(item)
-        if item['test_switch'] != 'y':
+        if item['test_switch'] != '是':
             continue
         CommonApi(item['request_url'], item['parameter'], item['case_name'], item['request_expect']).run()
     end = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())

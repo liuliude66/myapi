@@ -23,7 +23,7 @@ class Singleton(object):
         self.__userid = __userid
 
     def getUserId(self):
-        return self.__sessionid
+        return self.__userid
 
     def getVersion(self):
         return self.__version

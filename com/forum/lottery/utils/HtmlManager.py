@@ -48,7 +48,7 @@ def generate_html_head():
                     <td class='col-md-1'><strong>用例名字</strong></td>
                     <td class='col-md-2'><strong>请求参数</strong></td>
                     <td class='col-md-3'><strong>url</strong></td>
-                    <td class='col-md-1'><strong>预期</strong></td>
+                    <td class='col-md-1'><strong>期望code值</strong></td>
                     <td class='col-md-4'><strong>实际返回</strong></td>  
                     <td class='col-md-1'><strong>结果</strong></td>
                     <td class='col-md-1'><strong>请求时长(ms)</strong></td>
@@ -82,7 +82,7 @@ def pass_result(tend):
     if tend == 'pass':
         htl = '''<td bgcolor="green" style="text-align:center;color:white;">成功</td>'''
     elif tend == 'fail':
-        htl = '''<td bgcolor="red" style="text-align:center;">失败</td>'''
+        htl = '''<td bgcolor="red" style="text-align:center;color:white;">失败</td>'''
     elif tend == 'exception':
         htl = '''<td bgcolor="yellow" style="text-align:center;">执行异常</td>'''
     else:
