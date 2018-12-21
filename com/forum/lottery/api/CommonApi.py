@@ -21,7 +21,7 @@ class CommonApi(Api):
 
     def action(self):
         session = requests.session()
-        if LoginModule.urlLogin in self.url:
+        if 'login.do' in self.url:
             distribute = self.domain + '/passport/distribute_sessionid.do'
             distribute_r = session.post(distribute, headers=self.header, timeout=self.timeout, verify=False)
             distribute_response = json.loads(distribute_r.text)

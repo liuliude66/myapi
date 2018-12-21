@@ -31,7 +31,10 @@ def start_interface_html_http():
     # handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_app', 'app接口测试')), 'app接口测试')
 
     # 代理接口测试
-    handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_agent_mobile', '代理接口测试')), '代理接口测试')
+    # handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_agent_mobile', '代理接口测试')), '代理接口测试')
+
+    # 后台管理测试
+    handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
 
 if __name__ == '__main__':
     start_interface_html_http()
