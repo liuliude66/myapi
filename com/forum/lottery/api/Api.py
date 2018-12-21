@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 
-import json
+import json, urllib.request
 
 from com.forum.lottery.utils.HtmlManager import *
 from com.forum.lottery.utils.Report import FileHelper
@@ -38,7 +38,10 @@ class Api(object):
                 break
             except Exception as e:
                 print("重试次数:" + str(index))
-                response = str(tuple(e.args))
+                try:
+                    response = '请求异常:' + str(urllib.request.urlopen(GlobalConfig['DOMAIN'] + self.url).getcode()) + str(tuple(e.args))
+                except Exception as e:
+                    response = '服务器url请求错误'
         print(response)
         # 保存测试结果
         th_header = 'hello test result'
