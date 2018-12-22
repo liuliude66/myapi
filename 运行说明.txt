@@ -8,4 +8,5 @@
 
 excel:
 1. 字符 null  用 None 替代
-2. 字符 True  用 1 替代
+2. 字符 true ， false 加 单引号
+3. form-data的格式数据用： accessToken=111&code=11
