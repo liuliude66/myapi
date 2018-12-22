@@ -7,6 +7,8 @@ import requests
 
 from com.forum.lottery.api.Api import Api
 from com.forum.public.singleton import Singleton
+from com.forum.public.singlePay import SinglePay
+from com.forum.public.singleMange import SingleManage
 
 # 模板Api接口
 class CommonApi(Api):
@@ -61,6 +63,8 @@ class CommonApi(Api):
                     return 'json', [betParams]
                 else:
                     json_temp = eval(self.parameter)
+                    json_temp = self.judgeManageParams(json_temp)
+                    json_temp = self.judgePcParams(json_temp)
 
                     if 'userId' in json_temp.keys():
                         if Singleton().getUserId():
@@ -79,8 +83,65 @@ class CommonApi(Api):
         else:
             return 'data', []
 
+    def judgeManageParams(self, json):
+        # 新闻
+        if '/manage/news/get_detail.do' in self.url:
+            if 'id' in json.keys():
+                json['id'] = SingleManage().getNewId()
+
+        if '/manage/news/add_or_update.do' in self.url:
+            if 'id' in json.keys():
+                json['id'] = SingleManage().getNewId()
+
+        if '/manage/news/delete.do' in self.url:
+            if 'id' in json.keys():
+                json['id'] = SingleManage().getNewId()
+
+        # 优惠活动
+        if '/manage/discountoff/update_sort.do' in self.url:
+            if 'discountoffId' in json.keys():
+                json['discountoffId'] = SingleManage().getDiscountoffId()
+
+        if '/manage/discountoff/get.do' in self.url:
+            if 'discountoffId' in json.keys():
+                json['discountoffId'] = SingleManage().getDiscountoffId()
+
+        if '/manage/discountoff/update.do' in self.url:
+            if 'discountoffId' in json.keys():
+                json['discountoffId'] = SingleManage().getDiscountoffId()
+
+        if '/manage/discountoff/delete.do' in self.url:
+            if 'discountoffId' in json.keys():
+                json['discountoffId'] = SingleManage().getDiscountoffId()
+
+        return json
+
+    def judgePcParams(self, json):
+        if '/front/recharge/deposit_third.do' in self.url:
+            if SinglePay().getThirdOrder():
+                thirdOrder = SinglePay().getThirdOrder()
+                json['thirdCode'] = thirdOrder['thirdCode']
+                json['thirdMode'] = thirdOrder['thirdMode']
+                json['thirdId'] = thirdOrder['id']
+
+        if '/front/recharge/deposit_common.do' in self.url:
+            if SinglePay().getBankOder():
+                bankOrder = SinglePay().getBankOder()
+                json['bankId'] = bankOrder['id']
+
+        if '/front/recharge/preOrder.do' in self.url:
+            if SinglePay().getPreOrder():
+                preOrder = SinglePay().getPreOrder()
+                json['thirdCode'] = preOrder['thirdCode']
+                json['thirdMode'] = preOrder['thirdMode']
+                json['thirdId'] = preOrder['id']
+                json['receiveAccount'] = preOrder['receiveAccount']
+                json['receiveName'] = preOrder['receiveName']
+                json['payType'] = preOrder['payType']
+        return json
+
     def judgeFormData(self, dict):  # formData请求参数替换本地数据
-        if 'passport/login_validate.do' in self.url:
+        if '/passport/login_validate.do' in self.url:
             if 'accessToken' in dict.keys():
                 dict['accessToken'] = (None, Singleton().getAccessToken())
         return dict
@@ -94,10 +155,61 @@ class CommonApi(Api):
             if 'data' in response.keys():
                 Singleton().setOrderId(response['data'])
 
-        if '/front/lottery/draw_info.do' in self.url:
+        if '/front/interface/draw_info.do' in self.url:
             if 'currentIssue' in response['data'].keys():
                 Singleton().setBetIssue(response['data']['currentIssue'])
 
         if '/passport/manage_login.do' in self.url:
             if 'data' in response.keys():
                 Singleton().setAccessToken(response['data'])
+
+        self.judgeManageResponse(response)
+        self.judgePcResponse(response)
+
+    def judgeManageResponse(self, response):
+        # 新闻
+        if '/manage/news/get_list.do' in self.url:
+            if 'rows' in response.keys():
+                item = response['rows'][0]
+                SingleManage().setNewId(item['id'])
+
+        # 优惠活动
+        if '/manage/discountoff/list.do' in self.url:
+            if 'rows' in response.keys():
+                item = response['rows'][0]
+                SingleManage().setDiscountoffId(item['discountoffId'])
+
+    def judgePcResponse(self, response):
+        # 充值方式
+        if '/front/recharge/get_deposit_list.do' in self.url:
+            if 'data' in response.keys():
+                list = response['data']
+                bankOrder = dict()
+                thirdOrder = dict()
+                preOrder = dict()
+                for item in list:
+                    if item['type'] == 'bank':
+                        if SinglePay().getBankOder():
+                            continue
+                        bankOrder['bankId'] = item['id']
+                        SinglePay().setBankOder(bankOrder)
+                    else:
+                        subList = item['payways']
+                        for subItem in subList:
+                            if subItem['payType'] == 'online':
+                                if SinglePay().getThirdOrder():
+                                    continue
+                                thirdOrder['thirdCode'] = subItem['thirdCode']
+                                thirdOrder['thirdMode'] = subItem['thirdMode']
+                                thirdOrder['thirdId'] = subItem['id']
+                                SinglePay().setThirdOrder(thirdOrder)
+                            elif subItem['payType'] == 'SELF':
+                                if SinglePay().getPreOrder():
+                                    continue
+                                preOrder['thirdCode'] = subItem['thirdCode']
+                                preOrder['thirdMode'] = subItem['thirdMode']
+                                preOrder['thirdId'] = subItem['id']
+                                preOrder['receiveAccount'] = subItem['receiveAccount']
+                                preOrder['receiveName'] = subItem['receiveName']
+                                preOrder['payType'] = subItem['payType']
+                                SinglePay().setPreOrder(preOrder)
