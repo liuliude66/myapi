@@ -37,10 +37,9 @@ def generate_html_head():
             <div style='margin-top: 1%;' >
                 <div class="btn-group" role="group" aria-label="...">
                     <button type="button" id="check-all" class="btn btn-primary">所有用例</button>
-                    <button type="button" id="check-success" class="btn btn-success">成功用例</button>
-                    <button type="button" id="check-danger" class="btn btn-danger">失败用例</button>
-                    <button type="button" id="check-warning" class="btn btn-warning">错误用例</button>
-                    <button type="button" id="check-except" class="btn btn-defult">异常用例</button>
+                    <button type="button" id="check-pass" class="btn btn-success">成功用例</button>
+                    <button type="button" id="check-fail" class="btn btn-danger">失败用例</button>
+                    <button type="button" id="check-error" class="btn btn-warning">异常用例</button>
                 </div>
             <div class="btn-group" role="group" aria-label="..."></div>
             <table class="table table-hover table-condensed table-bordered" style="word-wrap:break-word; word-break:break-all;  margin-top: 7px; table-layout: fixed;">
@@ -56,7 +55,7 @@ def generate_html_head():
                 </tr>
     '''
 
-def summarize_html(start, end, pass_count, fail_count, exception_count, error_count):
+def summarize_html(start, end, pass_count, fail_count, exception_cout, error_count):
     start_t = int(time.mktime(time.strptime(start, "%Y-%m-%d %H:%M:%S")))
     end_t = int(time.mktime(time.strptime(end, "%Y-%m-%d %H:%M:%S")))
     return '''
@@ -71,12 +70,11 @@ def summarize_html(start, end, pass_count, fail_count, exception_count, error_co
                         <span >
                             通过: <strong >%s</strong>  
                             失败: <strong >%s</strong>
-                            执行异常: <strong >%s</strong>
-                            未知错误: <strong >%s</strong></span>
+                            执行异常: <strong >%s</strong></span>
                     </td>                  
                 </tr> 
             </tbody>
-		</table></div> ''' % (start, end, (end_t - start_t), pass_count, fail_count, exception_count, error_count)
+		</table></div> ''' % (start, end, (end_t - start_t), pass_count, fail_count, error_count)
 
 
 def pass_result(tend):
@@ -95,38 +93,32 @@ def generate_html_tail():
     return '''</div></div></table><script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-    	$("#check-danger").click(function(e){
+        $("#check-all").click(function(e){
     	    $(".case-tr").removeClass("hidden-tr");
-            $(".success").addClass("hidden-tr");
-            $(".warning").addClass("hidden-tr");
+    	});
+    	
+    	$("#check-pass").click(function(e){
+    		$(".case-tr").removeClass("hidden-tr");
+            $(".fail").addClass("hidden-tr");
             $(".error").addClass("hidden-tr");
     	});
-    	$("#check-warning").click(function(e){
-    		 $(".case-tr").removeClass("hidden-tr");
-            $(".success").addClass("hidden-tr");
-            $(".danger").addClass("hidden-tr");
-            $(".error").addClass("hidden-tr");
-    	});
-    	$("#check-success").click(function(e){
-    		 $(".case-tr").removeClass("hidden-tr");
-            $(".warning").addClass("hidden-tr");
-            $(".danger").addClass("hidden-tr");
-            $(".error").addClass("hidden-tr");
-    	});
-    	$("#check-except").click(function(e){
-    		 $(".case-tr").removeClass("hidden-tr");
-            $(".warning").addClass("hidden-tr");
-            $(".danger").addClass("hidden-tr");
-            $(".success").addClass("hidden-tr");
-    	});
-    	$("#check-all").click(function(e){
+    	
+    	$("#check-fail").click(function(e){
     	    $(".case-tr").removeClass("hidden-tr");
+            $(".pass").addClass("hidden-tr");
+            $(".error").addClass("hidden-tr");
+    	});
+    	
+    	$("#check-error").click(function(e){
+    		$(".case-tr").removeClass("hidden-tr");
+            $(".pass").addClass("hidden-tr");
+            $(".fail").addClass("hidden-tr");
     	});
     </script>
     </body></html>'''
 
 
-def generate_html_file(header, index, case_name, url, parameter, expect, real, result, requestTime):
+def generate_html_file(index, case_name, url, parameter, expect, real, result, requestTime):
     return '''
     <tr class="case-tr %s">
         <td style='text-align:center;'>%s</td>
@@ -138,4 +130,4 @@ def generate_html_file(header, index, case_name, url, parameter, expect, real, r
         %s
         <td style='text-align:center;'>%s</td>
     </tr>
-    ''' % (header, index, case_name, parameter, url, expect, real, pass_result(result), requestTime)
+    ''' % (result, index, case_name, parameter, url, expect, real, pass_result(result), requestTime)

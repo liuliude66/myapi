@@ -19,8 +19,8 @@ class Api(object):
     expect = ''
     case_name = ''
     requestTime = 0
-    formData = 0
-    index = 0
+    formData = 0  # 是否是formData参数
+    index = 0  # 输入编号索引
 
     def __init__(self):
         self.header['content-type'] = 'application/json;charset:utf-8'
@@ -43,9 +43,9 @@ class Api(object):
                     response = '请求异常:' + str(urllib.request.urlopen(self.url).getcode()) + str(tuple(e.args))
                 except Exception as e:
                     response = '服务器url请求错误'
+        print('编号:%s' % self.index)
         print(response)
         # 保存测试结果
-        th_header = 'hello test result'
         try:
             if isinstance(response, str):
                 result = 'error'
@@ -71,8 +71,7 @@ class Api(object):
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(th_header, self.index, self.case_name, self.url, self.parameter, self.expect,
-                                  json.dumps(response, ensure_ascii=False), result, self.requestTime)
+        html = generate_html_file(self.index, self.case_name, self.url, self.parameter, self.expect, json.dumps(response, ensure_ascii=False), result, self.requestTime)
         helper = FileHelper()
         helper.write(html)
 
