@@ -5,11 +5,11 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 
-from com.config.globalConfig import GlobalConfig
+from code.config.globalConfig import GlobalConfig
 import datetime
-from com.special.testCase.loginTest import LoginTest
-from com.special.testCase.betTest import BetTest
-from com.special.service.betHttpTool import *
+from code.special.testCase.loginTest import LoginTest
+from code.special.testCase.betTest import BetTest
+from code.special.service.betHttpTool import *
 import threading
 from main import *
 

@@ -3,12 +3,12 @@
 
 import datetime
 
-from com.tool.transTool import TransTool
-from com.tool.assertTool import assertCode
-from com.special.service.loginHttpTool import LoginHttpTool
-from com.special.testCase.publicHandle import PublicHandle
-from com.tool.testConfig import *
-from com.special.htmls.loginModuleHtml import *
+from code.tool.transTool import TransTool
+from code.tool.assertTool import assertCode
+from code.special.service.loginHttpTool import LoginHttpTool
+from code.special.testCase.publicHandle import PublicHandle
+from code.tool.testConfig import *
+from code.special.htmls.loginModuleHtml import *
 
 # 登录模块测试
 class LoginTest(PublicHandle):

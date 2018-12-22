@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.public.singleton import Singleton
+from code.public.singleton import Singleton
 
 class PublicHandle():
     def showResultSuccessDic(self, result): # 成功返回的显示

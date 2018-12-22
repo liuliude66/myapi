@@ -3,9 +3,9 @@
 
 DicItems = 'items'
 
-from com.special.service.urlService import LoginModule
-from com.tool.testConfig import *
-from com.special.htmls.createHtml import *
+from code.special.service.urlService import LoginModule
+from code.tool.testConfig import *
+from code.special.htmls.createHtml import *
 
 # 注册专项
 def handleRegisterHtmlData(starttime, endtime, resultDic):

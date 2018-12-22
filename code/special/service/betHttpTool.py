@@ -1,8 +1,8 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.special.service.serviceTool import Request
-from com.special.service.urlService import BetModule
+from code.special.service.serviceTool import Request
+from code.special.service.urlService import BetModule
 
 requset = Request()
 

@@ -1,9 +1,9 @@
 #! python
 # -*- coding:utf-8 -*-
 
-from com.config.globalConfig import GlobalConfig
-from com.special.testCase.betTest import BetTest
-from com.special.testCase.loginTest import LoginTest
+from code.config.globalConfig import GlobalConfig
+from code.special.testCase.betTest import BetTest
+from code.special.testCase.loginTest import LoginTest
 
 #  查看彩种布局
 class AppUI(object):

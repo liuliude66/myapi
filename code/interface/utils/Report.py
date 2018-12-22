@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.config.globalConfig import GlobalConfig
+from code.config.globalConfig import GlobalConfig
 
 class FileHelper(object):
 

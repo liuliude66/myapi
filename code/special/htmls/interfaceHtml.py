@@ -3,8 +3,8 @@
 
 DicItems = 'items'
 
-from com.tool.testConfig import *
-from com.special.htmls.createHtml import *
+from code.tool.testConfig import *
+from code.special.htmls.createHtml import *
 
 # 接口显示
 def handleInterfaceData(starttime, endtime, resultDic, configDic):

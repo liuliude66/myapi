@@ -3,11 +3,11 @@
 
 import json, datetime
 
-from com.special.service.betHttpTool import BetHttpTool
-from com.special.testCase.publicHandle import PublicHandle
-from com.tool.transTool import TransTool
-from com.tool.testConfig import TestConfig
-from com.special.htmls.interfaceHtml import handleInterfaceData
+from code.special.service.betHttpTool import BetHttpTool
+from code.special.testCase.publicHandle import PublicHandle
+from code.tool.transTool import TransTool
+from code.tool.testConfig import TestConfig
+from code.special.htmls.interfaceHtml import handleInterfaceData
 
 # 投注模块测试
 class BetTest(PublicHandle):

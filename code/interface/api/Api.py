@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 
 import json, urllib.request
 
-from com.lottery.utils.Report import FileHelper
-from com.config.globalConfig import GlobalConfig
-from com.lottery.utils.HtmlManager import *
+from code.interface.utils.Report import FileHelper
+from code.config.globalConfig import GlobalConfig
+from code.interface.utils.HtmlManager import *
 
 # API父类
 class Api(object):

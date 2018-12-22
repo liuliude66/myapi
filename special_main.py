@@ -1,8 +1,8 @@
 #! python
 # -*- coding:utf-8 -*-
 
-from com.special.testCase.loginTest import LoginTest
-from com.special.testCase.betTest import BetTest
+from code.special.testCase.loginTest import LoginTest
+from code.special.testCase.betTest import BetTest
 
 '''执行测试的主要文件'''
 def start_interface_html_http():

@@ -1,9 +1,9 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.special.service.serviceTool import Request
-from com.special.service.urlService import LoginModule
-from com.public.singleton import Singleton
+from code.special.service.serviceTool import Request
+from code.special.service.urlService import LoginModule
+from code.public.singleton import Singleton
 
 requset = Request()
 
