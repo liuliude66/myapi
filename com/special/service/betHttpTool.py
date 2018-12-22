@@ -1,28 +1,15 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.forum.special.service.serviceTool import Request
-from com.forum.special.service.urlService import LoginModule
-from com.forum.public.singleton import Singleton
+from com.special.service.serviceTool import Request
+from com.special.service.urlService import BetModule
 
 requset = Request()
 
-class LoginHttpTool(object):
+class BetHttpTool(object):
     @classmethod
-    def postGetSessionid(cls): # 请求sessionId
-        success, json = requset.post(LoginModule.urlSessionId, None)
-        if success == 0:
-            if json['code'] == 0:
-                Singleton().setSessionId(json['data']['sessionid'])
-                return 0, json
-            else:
-                return json['code'], json
-        else:
-            return 1, json
-
-    @classmethod
-    def postRegisterOption(cls): # 获取注册选项
-        success, json = requset.post(LoginModule.urlRegisterOptions, None)
+    def postBetAllLottery(cls):
+        success, json = requset.post(BetModule.urlBetAllLottery, None)
         if success == 0:
             if json['code'] == 0:
                 return 0, json
@@ -32,8 +19,8 @@ class LoginHttpTool(object):
             return 1, json
 
     @classmethod
-    def postRegister(cls, param): # 注册
-        success, json = requset.post(LoginModule.urlRegister, param)
+    def postBetPlayGroupItems(cls, lotteryId):
+        success, json = requset.post(BetModule.urlBetPlayGroupItems, {'lotteryId': lotteryId})
         if success == 0:
             if json['code'] == 0:
                 return 0, json
@@ -43,8 +30,8 @@ class LoginHttpTool(object):
             return 1, json
 
     @classmethod
-    def postLogin(cls, param): # 登录
-        success, json = requset.post(LoginModule.urlLogin, param)
+    def postBetGetLayoutItem(cls, playId):
+        success, json = requset.post(BetModule.urlBetGetLayoutItem, {'playId': playId})
         if success == 0:
             if json['code'] == 0:
                 return 0, json
@@ -54,8 +41,19 @@ class LoginHttpTool(object):
             return 1, json
 
     @classmethod
-    def postLogout(cls): # 退出
-        success, json = requset.post(LoginModule.urlLogout, None)
+    def postBetBetting(cls, items):
+        success, json = requset.postJson(BetModule.urlBetBetting + '?after=1', items)
+        if success == 0:
+            if json['code'] == 0:
+                return 0, json
+            else:
+                return json['code'], json
+        else:
+            return 1, json
+
+    @classmethod
+    def postBetBettingNextPeriod(cls, orderId):
+        success, json = requset.post(BetModule.urlBetBettingNextPeriod, {'orderId': orderId})
         if success == 0:
             if json['code'] == 0:
                 return 0, json

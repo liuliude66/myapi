@@ -5,15 +5,13 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
 
-from com.forum.config.globalConfig import GlobalConfig
+from com.config.globalConfig import GlobalConfig
 import datetime
-from com.forum.special.testCase.loginTest import LoginTest
-from com.forum.special.testCase.betTest import BetTest
-from com.forum.special.htmls.loginModuleHtml import *
-from com.forum.special.service.betHttpTool import *
+from com.special.testCase.loginTest import LoginTest
+from com.special.testCase.betTest import BetTest
+from com.special.service.betHttpTool import *
 import threading
 from main import *
-
 
 class AppUI(object):
     path = ''

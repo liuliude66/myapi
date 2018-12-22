@@ -1,12 +1,8 @@
 #! python
 # -*- coding:utf-8 -*-
 
-import threading
-
-from com.forum.config.globalConfig import GlobalConfig
-from com.forum.special.testCase.betTest import BetTest
-from com.forum.special.testCase.loginTest import LoginTest
-
+from com.config.globalConfig import GlobalConfig
+from com.special.testCase.betTest import BetTest
 
 #  查看彩种布局
 class AppUI(object):
@@ -20,7 +16,6 @@ class AppUI(object):
             BetTest().interfaceLotteryLayoutCase(lottery_name)
         except Exception as ex:
             print(str(ex.args))
-
 
 if __name__ == "__main__":
     AppUI(GlobalConfig['Lottery_layout'])

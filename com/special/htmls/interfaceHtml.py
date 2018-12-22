@@ -1,10 +1,10 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-from com.forum.special.htmls.createHtml import *
-from com.forum.tool.testConfig import *
-
 DicItems = 'items'
+
+from com.tool.testConfig import *
+from com.special.htmls.createHtml import *
 
 # 接口显示
 def handleInterfaceData(starttime, endtime, resultDic, configDic):

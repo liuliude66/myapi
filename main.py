@@ -2,11 +2,12 @@
 # -*- coding:utf-8 -*-
 
 from __future__ import unicode_literals
-from com.forum.lottery.utils.HtmlManager import *
-from com.forum.lottery.api.CommonApi import CommonApi
-from com.forum.lottery.utils.Report import FileHelper
-from com.forum.tool.transTool import TransTool
-from com.forum.tool.testConfig import TestConfig
+from com.lottery.api.CommonApi import CommonApi
+from com.lottery.utils.Report import FileHelper
+from com.tool.transTool import TransTool
+from com.tool.testConfig import TestConfig
+from com.config.globalConfig import GlobalConfig
+from com.lottery.utils.HtmlManager import *
 
 def handleTestData(items, fileName):
     print("------->  start  <-------")
@@ -32,13 +33,13 @@ def handleTestData(items, fileName):
 
 def start_interface_html_http():
     # app接口测试
-    # handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_app', 'app接口测试')), 'app接口测试')
+    handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_app', 'app接口测试')), 'app接口测试')
 
     # 代理接口测试
-    # handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_agent_mobile', '代理接口测试')), '代理接口测试')
+    handleTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_agent_mobile', '代理接口测试')), '代理接口测试')
 
     # 后台管理测试
-    # handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
+    handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
 
     # pc接口测试
     handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_pc', 'pc接口测试')), 'pc接口测试')

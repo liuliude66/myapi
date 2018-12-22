@@ -1,6 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-from com.forum.config.globalConfig import GlobalConfig
+
+from com.config.globalConfig import GlobalConfig
 
 class FileHelper(object):
 

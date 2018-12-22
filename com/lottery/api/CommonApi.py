@@ -5,10 +5,10 @@ from __future__ import unicode_literals
 import json
 import requests
 
-from com.forum.lottery.api.Api import Api
-from com.forum.public.singleton import Singleton
-from com.forum.public.singlePay import SinglePay
-from com.forum.public.singleMange import SingleManage
+from com.lottery.api.Api import Api
+from com.public.singleton import Singleton
+from com.public.singlePay import SinglePay
+from com.public.singleMange import SingleManage
 
 # 模板Api接口
 class CommonApi(Api):

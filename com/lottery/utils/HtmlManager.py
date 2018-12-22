@@ -3,7 +3,7 @@
 
 import time
 from rootPath import getRootPath
-from com.forum.config.globalConfig import GlobalConfig
+from com.config.globalConfig import GlobalConfig
 
 # 创建HTML文档
 def create_html_file(fileName):
