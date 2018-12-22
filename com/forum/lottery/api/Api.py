@@ -43,7 +43,7 @@ class Api(object):
                     response = '请求异常:' + str(urllib.request.urlopen(self.url).getcode()) + str(tuple(e.args))
                 except Exception as e:
                     response = '服务器url请求错误'
-        print('编号:%s' % self.index)
+        print('编号:%s' % (self.index + 1))
         print(response)
         # 保存测试结果
         try:
@@ -71,7 +71,7 @@ class Api(object):
             result = 'error'
             GlobalConfig['ERROR_COUNT'] = GlobalConfig['ERROR_COUNT'] + 1
             print(ex.args)
-        html = generate_html_file(self.index, self.case_name, self.url, self.parameter, self.expect, json.dumps(response, ensure_ascii=False), result, self.requestTime)
+        html = generate_html_file(self.index + 1, self.case_name, self.url, self.parameter, self.expect, json.dumps(response, ensure_ascii=False), result, self.requestTime)
         helper = FileHelper()
         helper.write(html)
 

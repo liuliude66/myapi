@@ -7,6 +7,8 @@ class Singleton(object):
     __version = '5.2.3'
     __userid = ''
     __access_token = ''
+    __orderId = ''
+    __betIssue = ''
 
     __instance = None
     def __new__(cls, *args, **kwargs):  # 这里不能使用__init__，因为__init__是在instance已经生成以后才去调用的
@@ -34,3 +36,15 @@ class Singleton(object):
 
     def getVersion(self):
         return self.__version
+
+    def setOrderId(self, orderId):
+        self.__orderId = orderId
+
+    def getOrderId(self):
+        return self.__orderId
+
+    def setBetIssue(self, betIssue):
+        self.__betIssue = betIssue
+
+    def getBetIssue(self):
+        return self.__betIssue

@@ -202,7 +202,7 @@ class AppUI(object):
 
     def admin_service_action(self):
         try:
-            handleAdminTestData(TransTool().TransSpecial(TestConfig().getAllInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
+            handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_manage', '后台管理接口测试')), '后台管理接口测试')
             self.create_log("后台管理接口测试结束执行...")
         except Exception as ex:
             self.create_log("！！！！！！！！！注册执行异常！！！！！！！！！")

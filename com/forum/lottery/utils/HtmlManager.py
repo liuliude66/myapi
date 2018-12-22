@@ -126,7 +126,7 @@ def generate_html_file(index, case_name, url, parameter, expect, real, result, r
         <td>%s</td>
         <td>%s</td>
         <td style='text-align:center;'>%s</td>
-        <td style="overflow: hidden;text-overflow: ellipsis;word-break:break-all;word-wrap:break-word;white-space: nowrap;">%s</td>
+        <td style="overflow: hidden;text-overflow: ellipsis;word-break:break-all;word-wrap:break-word;">%s</td>
         %s
         <td style='text-align:center;'>%s</td>
     </tr>
