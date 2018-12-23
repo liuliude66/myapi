@@ -12,7 +12,6 @@ from code.public.singleMange import SingleManage
 
 # 模板Api接口
 class CommonApi(Api):
-
     def __init__(self, url, parameter, case_name, expect, formData, index):
         Api.__init__(self)
         self.url = self.domain + url
@@ -66,7 +65,7 @@ class CommonApi(Api):
                     json_temp = self.judgeManageParams(json_temp)
                     json_temp = self.judgePcParams(json_temp)
 
-                    if 'userId' in json_temp.keys():
+                    if 'userId' in json_temp:
                         if Singleton().getUserId():
                             json_temp['userId'] = Singleton().getUserId()
 
@@ -85,35 +84,18 @@ class CommonApi(Api):
 
     def judgeManageParams(self, json):
         # 新闻
-        if '/manage/news/get_detail.do' in self.url:
-            if 'id' in json.keys():
-                json['id'] = SingleManage().getNewId()
-
-        if '/manage/news/add_or_update.do' in self.url:
-            if 'id' in json.keys():
-                json['id'] = SingleManage().getNewId()
-
-        if '/manage/news/delete.do' in self.url:
-            if 'id' in json.keys():
-                json['id'] = SingleManage().getNewId()
+        newsList = ['/manage/news/get_detail.do', '/manage/news/add_or_update.do', '/manage/news/delete.do']
+        for newsUrl in newsList:
+            if newsUrl in self.url:
+                if 'id' in json:
+                    json['id'] = SingleManage().getNewId()
 
         # 优惠活动
-        if '/manage/discountoff/update_sort.do' in self.url:
-            if 'discountoffId' in json.keys():
-                json['discountoffId'] = SingleManage().getDiscountoffId()
-
-        if '/manage/discountoff/get.do' in self.url:
-            if 'discountoffId' in json.keys():
-                json['discountoffId'] = SingleManage().getDiscountoffId()
-
-        if '/manage/discountoff/update.do' in self.url:
-            if 'discountoffId' in json.keys():
-                json['discountoffId'] = SingleManage().getDiscountoffId()
-
-        if '/manage/discountoff/delete.do' in self.url:
-            if 'discountoffId' in json.keys():
-                json['discountoffId'] = SingleManage().getDiscountoffId()
-
+        activityList = ['/manage/discountoff/update_sort.do', '/manage/discountoff/get.do', '/manage/discountoff/update.do', '/manage/discountoff/delete.do']
+        for activityUrl in activityList:
+            if activityUrl in self.url:
+                if 'discountoffId' in json:
+                    json['discountoffId'] = SingleManage().getDiscountoffId()
         return json
 
     def judgePcParams(self, json):
@@ -142,7 +124,7 @@ class CommonApi(Api):
 
     def judgeFormData(self, dict):  # formData请求参数替换本地数据
         if '/passport/login_validate.do' in self.url:
-            if 'accessToken' in dict.keys():
+            if 'accessToken' in dict:
                 dict['accessToken'] = (None, Singleton().getAccessToken())
         return dict
 
@@ -152,15 +134,15 @@ class CommonApi(Api):
                 Singleton().setUserId(response['data']['userId'])
 
         if '/front/bet/betting.do' in self.url:
-            if 'data' in response.keys():
+            if 'data' in response:
                 Singleton().setOrderId(response['data'])
 
         if '/front/interface/draw_info.do' in self.url:
-            if 'currentIssue' in response['data'].keys():
+            if 'currentIssue' in response['data']:
                 Singleton().setBetIssue(response['data']['currentIssue'])
 
         if '/passport/manage_login.do' in self.url:
-            if 'data' in response.keys():
+            if 'data' in response:
                 Singleton().setAccessToken(response['data'])
 
         self.judgeManageResponse(response)
@@ -169,20 +151,20 @@ class CommonApi(Api):
     def judgeManageResponse(self, response):
         # 新闻
         if '/manage/news/get_list.do' in self.url:
-            if 'rows' in response.keys():
+            if 'rows' in response:
                 item = response['rows'][0]
                 SingleManage().setNewId(item['id'])
 
         # 优惠活动
         if '/manage/discountoff/list.do' in self.url:
-            if 'rows' in response.keys():
+            if 'rows' in response:
                 item = response['rows'][0]
                 SingleManage().setDiscountoffId(item['discountoffId'])
 
     def judgePcResponse(self, response):
         # 充值方式
         if '/front/recharge/get_deposit_list.do' in self.url:
-            if 'data' in response.keys():
+            if 'data' in response:
                 list = response['data']
                 bankOrder = dict()
                 thirdOrder = dict()

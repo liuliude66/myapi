@@ -229,7 +229,7 @@ class AppUI(object):
     def lottery_bet_action(self, lottery_name):
         try:
             #  账号 密码
-            pre_dic = LoginTest().interfaceLoginCase(GlobalConfig['username'], GlobalConfig['password'])
+            pre_dic = LoginTest().interfaceLoginCase(GlobalConfig.User_account, GlobalConfig.User_password)
             BetTest().interfaceBetCase(pre_dic, lottery_name)
             self.create_log("投注结束执行...")
         except Exception as ex:

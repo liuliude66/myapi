@@ -10,14 +10,14 @@ def start_interface_html_http():
     LoginTest().specialRegisteCase()
 
     # 登录专项
-    LoginTest().specialLoginCase()
+    # LoginTest().specialLoginCase()
 
     # 所有彩种布局请求
-    BetTest().interfaceLotteryLayoutCase('三分PK10')
+    # BetTest().interfaceLotteryLayoutCase('三分PK10')
 
     # 投注测试 (登录)
-    preDic = LoginTest().interfaceLoginCase('lilei8', '888888')
-    BetTest().interfaceBetCase(preDic, '三分PK10')
+    # preDic = LoginTest().interfaceLoginCase('lilei8', '888888')
+    # BetTest().interfaceBetCase(preDic, '三分PK10')
 
 if __name__ == '__main__':
     start_interface_html_http()

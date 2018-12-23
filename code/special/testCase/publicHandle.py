@@ -7,7 +7,7 @@ class PublicHandle():
     def showResultSuccessDic(self, result): # 成功返回的显示
         showDic = dict()
         showDic['code'] = result['code']
-        if 'msg' in result.keys():
+        if 'msg' in result:
             showDic['msg'] = result['msg']
         else:
             showDic['msg'] = '没有返回msg,让后台加'
@@ -19,7 +19,7 @@ class PublicHandle():
         resultDic = dict()
         if result['code'] == 0:
             resultDic['code'] = result['code']
-            if 'msg' in result.keys():
+            if 'msg' in result:
                 resultDic['msg'] = result['msg']
             else:
                 resultDic['msg'] = '没有返回msg,让后台加'
@@ -33,7 +33,7 @@ class PublicHandle():
         listItemDic['name'] = urlName
         listItemDic['url'] = result['url']
         listItemDic['id'] = 0
-        if 'params' in result.keys():
+        if 'params' in result:
             listItemDic['params'] = result['params']
         else:
             listItemDic['params'] = ''

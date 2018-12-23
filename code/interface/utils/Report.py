@@ -11,7 +11,7 @@ class FileHelper(object):
     def write(self, content):
         fo = None
         try:
-            fo = open(GlobalConfig['REPORT_PATH'], "a+")
+            fo = open(GlobalConfig.Report_path, "a+")
             if isinstance(content, str):
                 fo.write(content + "\n")
             elif isinstance(content, tuple):

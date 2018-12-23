@@ -85,7 +85,7 @@ def renderItem(item, showIds):
     showItem = copy.deepcopy(item['result'])
     delItemList = ['requestTime', 'url']
     for i in range(len(delItemList)):
-        if delItemList[i] in showItem.keys():
+        if delItemList[i] in showItem:
             del showItem[delItemList[i]]
 
     if item['isPass'] == 1:

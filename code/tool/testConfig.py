@@ -1,13 +1,13 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 
-OutputName = 'outputName'
-ExcelName = 'excelName'
-ExcelItem = 'excelItem'
-ParamList = 'paramList'
+OutputName    = 'outputName'
+ExcelName     = 'excelName'
+ExcelItem     = 'excelItem'
+ParamList     = 'paramList'
 PostParamList = 'postParamList'
-PostParam = 'postParam'
-ExtraResult = 'extraResult'
+PostParam     = 'postParam'
+ExtraResult   = 'extraResult'
 
 class TestConfig():
     @classmethod
