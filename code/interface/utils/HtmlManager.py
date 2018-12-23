@@ -12,19 +12,16 @@ def create_html_file(fileName):
     GlobalConfig['REPORT_PATH'] = GlobalConfig['REPORT_PATH'] + '%s_%s.html' %(localtime, fileName)
 
 def generate_html_head():
-    return '''<!DOCTYPE html>
+    html = '''<!DOCTYPE html>
     <html>
     <head>
         <title>测试结果</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8″>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- 引入 Bootstrap -->
-        <link href="https://cdn.bootcss.code/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-        <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
-        <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
-        <!--[if lt IE 9]>
-         <script src="https://oss.maxcdn.code/libs/html5shiv/3.7.0/html5shiv.js"></script>
-         <script src="https://oss.maxcdn.code/libs/respond.js/1.3.0/respond.min.js"></script>
+        <link href="%s" rel="stylesheet">
+    ''' % (getRootPath() + '/files/plugs/bootstrap.min.css')
+    html += '''
         <![endif]-->
         <style type="text/css">
             .hidden-detail,.hidden-tr{
@@ -54,6 +51,7 @@ def generate_html_head():
                     <td class='col-md-1'><strong>请求时长(ms)</strong></td>
                 </tr>
     '''
+    return html
 
 def summarize_html(start, end, pass_count, fail_count, exception_cout, error_count):
     start_t = int(time.mktime(time.strptime(start, "%Y-%m-%d %H:%M:%S")))
@@ -90,8 +88,8 @@ def pass_result(tend):
 
 
 def generate_html_tail():
-    return '''</div></div></table><script src="https://code.jquery.code/jquery.js"></script>
-    <script src="https://cdn.bootcss.code/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    return '''</div></div></table><script src="%s"></script>
+    <script src="%s"></script>
     <script type="text/javascript">
         $("#check-all").click(function(e){
     	    $(".case-tr").removeClass("hidden-tr");
@@ -115,7 +113,7 @@ def generate_html_tail():
             $(".fail").addClass("hidden-tr");
     	});
     </script>
-    </body></html>'''
+    </body></html>''' % (getRootPath() + '/files/plugs/jquery-1.10.2.js', getRootPath() + '/files/plugs/bootstrap.min.js')
 
 
 def generate_html_file(index, case_name, url, parameter, expect, real, result, requestTime):
