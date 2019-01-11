@@ -18,4 +18,4 @@ class AppUI(object):
             print(str(ex.args))
 
 if __name__ == "__main__":
-    AppUI(GlobalConfig['Lottery_layout'])
+    AppUI(GlobalConfig().Lottery_layout)

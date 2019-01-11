@@ -8,6 +8,7 @@ from code.interface.utils.Report import FileHelper
 from code.tool.transTool import TransTool
 from code.tool.testConfig import TestConfig
 from code.interface.utils.HtmlManager import *
+from code.special.testCase.loginTest import LoginTest
 
 def handleTestData(items, fileName):
     print("------->  start  <-------")
@@ -45,5 +46,9 @@ def start_interface_html_http():
     # handleTestData(TransTool().TransSpecial(TestConfig().getFormModuleInterfaceData('interface_pc', 'pc接口测试')), 'pc接口测试')
 
 if __name__ == '__main__':
-    start_interface_html_http()
+    # start_interface_html_http()
+    try:
+        LoginTest().specialRegisteCase()
+    except Exception as ex:
+        print(ex.args)
 

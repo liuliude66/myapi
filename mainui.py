@@ -208,10 +208,11 @@ class AppUI(object):
 
     def login_action(self):
         try:
-            start_time = datetime.datetime.now()
-            result_dic = LoginTest().specialLoginCase()
-            end_time = datetime.datetime.now()
-            handleLoginHtmlData(start_time, end_time, result_dic)
+            LoginTest().specialLoginCase()
+            # start_time = datetime.datetime.now()
+            # result_dic = LoginTest().specialLoginCase()
+            # end_time = datetime.datetime.now()
+            # handleLoginHtmlData(start_time, end_time, result_dic)
             self.create_log("登录结束执行...")
         except Exception as ex:
             self.create_log("！！！！！！！！！登录执行异常！！！！！！！！！")
